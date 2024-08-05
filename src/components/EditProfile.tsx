@@ -1,10 +1,12 @@
 import React from 'react';
+import '../EditProfile.css'; // Importa el archivo CSS
 
 const EditProfile: React.FC = () => {
-  // Datos simulados para el perfil y las publicaciones
+  // Datos simulados
   const profile = {
     username: 'usuarioEjemplo',
     description: '¡Hola! Soy un usuario de ejemplo. Este es un perfil ficticio para propósitos de demostración.',
+    profilePicture: '/path/to/profile-picture.jpg' // Ruta a la imagen de perfil
   };
 
   const posts = [
@@ -17,13 +19,22 @@ const EditProfile: React.FC = () => {
 
   return (
     <div className="edit-profile-container">
-      <div className="profile-description">
+      <div className="column profile-description">
         <h2>Descripción del Perfil</h2>
-        <p><strong>Usuario:</strong> {profile.username}</p>
-        <p>{profile.description}</p>
+        <div className="profile-header">
+          <img
+            src={profile.profilePicture}
+            alt={`${profile.username}'s profile`}
+            className="profile-picture"
+          />
+          <div className="profile-info">
+            <p><strong>Usuario:</strong> {profile.username}</p>
+            <p>{profile.description}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="user-posts">
+      <div className="column user-posts">
         <h2>Publicaciones realizadas</h2>
         {posts.length > 0 ? (
           posts.map(post => (
@@ -37,10 +48,9 @@ const EditProfile: React.FC = () => {
         )}
       </div>
 
-      <div className="latest-posts">
+      <div className="column latest-posts">
         <h2>Últimas Publicaciones</h2>
         {posts.length > 0 ? (
-          // Mostrar las últimas 3 publicaciones
           posts.slice(0, 3).map(post => (
             <div key={post.id} className="post">
               <h3>{post.title}</h3>
