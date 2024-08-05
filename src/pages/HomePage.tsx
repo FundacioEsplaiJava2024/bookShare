@@ -1,20 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import BookList from '../components/BookList';
-import { fetchBooks } from '../services/api';
+import BookPost from '../components/BookPost';
+import '../index.css';
+
+interface Book {
+  id: number;
+  title: string;
+  author: string;
+  description: string;
+  condition: string;
+  location: string;
+  createdAt: string;
+}
 
 const HomePage: React.FC = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBooks().then(setBooks);
+    fetch('/api/books')
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching books:', error);
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <main>
-      <h1>Bienvenido a BookShare</h1>
-      <p>En esta página encontrarás una lista de libros disponibles para compartir.</p>
-      <BookList books={books} />
-    </main>
+    <div className="home-page">
+      <h1>Books Available for Donation</h1>
+      {books.map((book) => (
+        <BookPost
+          key={book.id}
+          title={book.title}
+          author={book.author}
+          description={book.description}
+          condition={book.condition}
+          location={book.location}
+          createdAt={book.createdAt}
+        />
+      ))}
+    </div>
   );
 };
 

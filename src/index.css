@@ -1,16 +1,63 @@
+/* paleta de colores:
+verde oscuro: 165b2f
+verde claro: 3bce73
+verde muy claro: 9ee6be
+*/
 *{
     box-sizing: border-box;
 }
+h1, h2, h3, h4, p, a{
+    color:#165b2f ;
+    text-decoration: none;
+}
 #root{
-    width: 80%;
-    margin: 0 auto;
+
 }
 header{
     display: flex;
     justify-content: space-between;
-    background-color: greenyellow;
+    background-color: #3bce73;
     padding: 10px 5px;
+}
+header .logo img{
+    width: 5rem;
+    margin-left: 15px;
 }
 header nav{
     display: flex;
+}
+header nav a{
+    margin: auto 0;
+    padding: 10px;
+    margin-left: 15px;
+    color: #165b2f;
+    font-size: 18px;
+    text-decoration: none;
+}
+header nav a:hover{
+    background-color: #9ee6be;
+    border-radius: 20px;
+    transition: all 1s ease;
+}
+
+
+/* CSS DEL MAIN*/
+.home-page{
+    width: 80%;
+    margin: 0 auto;
+}
+
+/*CSS DEL FOOTER*/
+footer{
+    display: flex;
+    flex-direction: column;
+    background-color: #3bce73;
+    padding: 10px 5px;
+}
+footer .footer-content{
+    display: flex;
+    justify-content: space-around;
+}
+footer .footer-bottom{
+    text-align: center;
 }
