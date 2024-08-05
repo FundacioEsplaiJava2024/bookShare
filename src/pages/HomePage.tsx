@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookPost from '../components/BookPost';
 import '../index.css';
-import { fetchBooks } from '../services/api';
 
 interface Book {
   id: number;
@@ -43,7 +42,7 @@ const HomePage: React.FC = () => {
       <h1>Books Available for Donation</h1>
       {books.map((book) => (
         <BookPost
-          key={book.id}
+          key={""+book.id}
           category_name={book.category_name}
           title={book.title}
           author={book.author}
