@@ -6,7 +6,7 @@ verde muy claro: 9ee6be
 *{
     box-sizing: border-box;
 }
-h1, h2, h3, h4, p, a{
+h1, h2, h3, h4, p, a, li{
     color:#165b2f ;
     text-decoration: none;
 }
@@ -54,9 +54,32 @@ footer{
     background-color: #3bce73;
     padding: 10px 5px;
 }
+
 footer .footer-content{
     display: flex;
     justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+}
+footer .footer-section{
+    width: 33%;
+}
+footer .footer-section h4{
+    margin-bottom: 15px;
+}
+footer .footer-section ul li{
+    display: flex;
+}
+footer .footer-section ul li p{
+    margin: auto 0;
+    margin-left: 15px;
+}
+footer .footer-section ul li a{
+    display: flex;
+    align-items: center;
+}
+footer .footer-section ul li a img{
+    margin-right: 15px;
 }
 footer .footer-bottom{
     text-align: center;
