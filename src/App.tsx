@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import Footer from './components/footer';
 import BookDetailPage from './pages/BookDetailPage';
 import CategoryPage from './pages/CategoryPage';
+import AuthForm from './components/Auth/AuthForm';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/books/:id" element={<BookDetailPage />} />
         <Route path="/categories/:category" element={<CategoryPage />} />
+        <Route path="/auth" Component={AuthForm} />
       </Routes>
       <Footer />
     </Router>
