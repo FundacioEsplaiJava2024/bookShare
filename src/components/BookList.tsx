@@ -3,11 +3,15 @@ import BookItem from './BookItem';
 
 interface Book {
   id: number;
+  category_name: string;
   title: string;
   author: string;
   description: string;
   condition: string;
   location: string;
+  createdAt: string;
+  updatedAt: string;
+  userName: string;
 }
 
 interface BookListProps {
