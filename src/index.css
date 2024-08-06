@@ -10,8 +10,10 @@ h1, h2, h3, h4, p, a, li{
     color:#165b2f ;
     text-decoration: none;
 }
-#root{
+body{
 
+}
+#root{
 }
 header{
     display: flex;
@@ -45,6 +47,46 @@ header nav a:hover{
 .home-page{
     width: 80%;
     margin: 0 auto;
+    min-height: 100vh;
+    background-color: rgba(218, 226, 209, 0.95);
+    padding-bottom: 50px;
+}
+.home-page h1, h2, h3, h4, h5, p{
+    color: black;
+}
+.home-page .slider-container{
+    width: 80%;
+    margin: 0 auto;
+}
+.home-page .slider-container img{
+    width: 100%;
+    height: 500px;
+}
+
+.home-page h1{
+    margin: 25px auto;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 20px;
+    width: 50%;
+    border-bottom: 1px solid green;
+}
+
+.home-page .container{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-left: 50px;
+}
+.home-page .container .book-post{
+    display: flex;
+    margin-bottom: 50px;
+}
+.book-post{
+    display: flex;
+}
+.book-post img{
+    margin-right: 30px;
 }
 
 /*CSS DEL FOOTER*/
