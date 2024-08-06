@@ -12,16 +12,18 @@ const Footer: React.FC = () => {
         </div>
         <div className="footer-section">
           <h4>Contact Us</h4>
-          <p> support@bookshare.com</p>
-          <p> (+34) 000-000-000</p>
+          <ul>
+            <li><img src="/img/email.png" alt="email" /> <p>support@bookshare.com</p></li>
+            <li> <img src="/img/call.png" alt="call" /> <p>(+34) 000-000-000</p></li>
+          </ul>
         </div>
         <div className="footer-section">
           <h4>Siguenos:</h4>
-          <p>
-            <a href="https://www.facebook.com">Facebook</a>
-            <a href="https://www.twitter.com">Twitter</a>
-            <a href="https://www.instagram.com">Instagram</a>
-          </p>
+          <ul>
+            <li><a href="https://www.facebook.com"> <img src="/img/facebook.png" alt="facebook" /> Facebook</a></li>
+            <li><a href="https://www.twitter.com"> <img src="/img/twitter.png" alt="twitter" /> Twitter</a></li>
+            <li><a href="https://www.instagram.com"> <img src="/img/instagram.png" alt="instagram" /> Instagram</a></li>          
+          </ul>
         </div>
       </div>
       <div className="footer-bottom">
