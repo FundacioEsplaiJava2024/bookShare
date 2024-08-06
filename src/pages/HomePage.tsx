@@ -1,20 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import BookList from '../components/BookList';
-import { fetchBooks } from '../services/api';
+import BookPost from '../components/BookPost';
+import '../index.css';
+
+interface Book {
+  book_author: string;
+  book_condition: string;
+  book_description: string;
+  book_id: number;
+  book_location: string;
+  book_title: string;
+  category_id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
+}
 
 const HomePage: React.FC = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBooks().then(setBooks);
+    fetch('http://127.0.0.1:8080/bookShare/books/list')
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks(data);
+        setLoading(false);
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error('Error fetching books:', error);
+        setLoading(false);
+      });
   }, []);
+  
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  console.log(books.map((book) => (
+    <BookPost
+      author={book.book_author}
+      condition={book.book_condition}
+      description={book.book_description}
+      key={book.book_id}
+      location={book.book_location}
+      title={book.book_title}
+      category_id={book.category_id}
+      createdAt={book.created_at}
+      updatedAt={book.updated_at}
+      user_id={book.user_id} id={book.book_id}      />
+  )))
   return (
-    <main>
-      <h1>Bienvenido a BookShare</h1>
-      <p>En esta página encontrarás una lista de libros disponibles para compartir.</p>
-      <BookList books={books} />
-    </main>
+    <div className="home-page">
+      <h1>Books Available for Donation</h1>
+      {books.map((book) => (
+        <BookPost
+          key={book.book_id}
+          category_id={book.category_id}
+          title={book.book_title}
+          author={book.book_author}
+          description={book.book_description}
+          condition={book.book_condition}
+          location={book.book_location}
+          createdAt={book.created_at}
+          updatedAt={book.updated_at}
+          user_id={book.user_id} 
+          id={book.book_id}/>
+      ))}
+    </div>
   );
 };
 
