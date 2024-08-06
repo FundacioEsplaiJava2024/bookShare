@@ -49,19 +49,27 @@ interface Book {
     }
   }
  
-  export const createBook = async (book: Partial<Book>): Promise<Book> => {
-    const response = await fetch(`${API_URL}/books`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(book),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to create book');
+  export async function createBook(bookData: {
+    user_id: number,
+    
+    category_id:number,
+    book_title:string,
+    book_author:string,
+    book_description:string,
+    book_condition:string,
+    book_location:string,
+    created_at:null,
+    updated_at:null,
+  }) : Promise<Book|undefined>{
+    try {
+      const response = await axios.post(`${API_URL}/books/add`, bookData);
+      console.log('Libro agregado', response.data);
+      return response.data as Book;
+    } catch(error) {
+      console.error('Error al agregar el libro', error);
     }
-    return await response.json();
-  };
+  }
+  
   
   export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {
     const response = await fetch(`${API_URL}/books/${id}`, {

@@ -8,33 +8,37 @@ const BookForm: React.FC = () => {
     const [condition, setCondition] = useState('');
     const [location, setLocation] = useState('');
     const [userId, setUserId] = useState(1); // This should be dynamically set based on logged-in user
+    
     const [image, setImage] = useState<File | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newBook = {
-            title,
-            author,
-            description,
-            condition,
-            location,
-            userId,
-            image,
+            user_id: userId,
+            // Set appropriate book_id
+            category_id: 1, // Set appropriate category_id
+            book_title: title,
+            book_author: author,
+            book_description: description,
+            book_condition: condition,
+            book_location: location,
+            created_at: null,
+            updated_at: null
         };
-
+      
         try {
-            await createBook(newBook);
-            alert('Book posted successfully!');
-            // Clear the form
-            setTitle('');
-            setAuthor('');
-            setDescription('');
-            setCondition('');
-            setLocation('');
+          await createBook(newBook);
+          alert('Libro agregado correctamente!');
+          // Limpiar el formulario
+          setTitle('');
+          setAuthor('');
+          setDescription('');
+          setCondition('');
+          setLocation('');
         } catch (error) {
-            alert('Failed to post book');
+          alert('Error al agregar libro');
         }
-    };
+      };
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {

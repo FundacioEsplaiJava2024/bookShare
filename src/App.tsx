@@ -1,14 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import HomePage from './pages/HomePage';
+import AuthForm from './components/Auth/AuthForm';
 import Footer from './components/footer';
 import BookDetailPage from './pages/BookDetailPage';
 import CategoryPage from './pages/CategoryPage';
-
-import AuthForm from './components/Auth/AuthForm';
-import BookForm from './components/BookForm'; // Importa el componente BookForm
+import NavBar from './components/NavBar';
+import BookForm from './components/BookForm';
 import EditProfile from './components/EditProfile';
+import HomePage from './pages/HomePage';
 
 const App: React.FC = () => {
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookPost from '../components/BookPost';
+import ImageSlider from '../components/ImageSlider';
 import '../index.css';
 
 interface Book {
@@ -52,21 +53,25 @@ const HomePage: React.FC = () => {
   )))
   return (
     <div className="home-page">
-      <h1>Books Available for Donation</h1>
-      {books.map((book) => (
-        <BookPost
-          key={book.book_id}
-          category_id={book.category_id}
-          title={book.book_title}
-          author={book.book_author}
-          description={book.book_description}
-          condition={book.book_condition}
-          location={book.book_location}
-          createdAt={book.created_at}
-          updatedAt={book.updated_at}
-          user_id={book.user_id} 
-          id={book.book_id}/>
-      ))}
+      <ImageSlider />
+      <h1>Libros disponibles para solicitar:</h1>
+      <div className="container">
+        {books.map((book) => (
+          <BookPost
+            key={book.book_id}
+            category_id={book.category_id}
+            title={book.book_title}
+            author={book.book_author}
+            description={book.book_description}
+            condition={book.book_condition}
+            location={book.book_location}
+            createdAt={book.created_at}
+            updatedAt={book.updated_at}
+            user_id={book.user_id} 
+            id={book.book_id}/>
+        ))}
+      </div>
+      
     </div>
   );
 };
