@@ -3,16 +3,16 @@ import BookPost from '../components/BookPost';
 import '../index.css';
 
 interface Book {
-  id: number;
-  category_name: string;
-  title: string;
-  author: string;
-  description: string;
-  condition: string;
-  location: string;
-  createdAt: string;
-  updatedAt: string;
-  userName: string;
+  book_author: string;
+  book_condition: string;
+  book_description: string;
+  book_id: number;
+  book_location: string;
+  book_title: string;
+  category_id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
 }
 
 const HomePage: React.FC = () => {
@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
       .then((data) => {
         setBooks(data);
         setLoading(false);
+        console.log(data)
       })
       .catch((error) => {
         console.error('Error fetching books:', error);
@@ -36,23 +37,35 @@ const HomePage: React.FC = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-
+  console.log(books.map((book) => (
+    <BookPost
+      author={book.book_author}
+      condition={book.book_condition}
+      description={book.book_description}
+      key={book.book_id}
+      location={book.book_location}
+      title={book.book_title}
+      category_id={book.category_id}
+      createdAt={book.created_at}
+      updatedAt={book.updated_at}
+      user_id={book.user_id} id={book.book_id}      />
+  )))
   return (
     <div className="home-page">
       <h1>Books Available for Donation</h1>
       {books.map((book) => (
         <BookPost
-          key={""+book.id}
-          category_name={book.category_name}
-          title={book.title}
-          author={book.author}
-          description={book.description}
-          condition={book.condition}
-          location={book.location}
-          createdAt={book.createdAt}
-          updatedAt={book.updatedAt}
-          userName={book.userName}
-        />
+          key={book.book_id}
+          category_id={book.category_id}
+          title={book.book_title}
+          author={book.book_author}
+          description={book.book_description}
+          condition={book.book_condition}
+          location={book.book_location}
+          createdAt={book.created_at}
+          updatedAt={book.updated_at}
+          user_id={book.user_id} 
+          id={book.book_id}/>
       ))}
     </div>
   );
