@@ -16,15 +16,18 @@ interface BookPostProps {
 const BookPost: React.FC<BookPostProps> = ({ author, condition, description, id, location, title, category_id, createdAt, updatedAt, user_id }) => {
   return (
     <div className="book-post">
-      <h2>{title}</h2>
-      <h4>by {author}</h4>
-      <p>{description}</p>
-      <p>{category_id}</p>
-      <p><strong>Condition:</strong> {condition}</p>
-      <p><strong>Location:</strong> {location}</p>
-      <p><em>Posted on: {new Date(createdAt).toLocaleDateString()}</em></p>
-      <p><em>Updated at: {new Date(updatedAt).toLocaleDateString()}</em></p>
-      <p>Post by user: {user_id}</p>
+      <img src="../../public/img/imgLibro.jpg" alt="prueba" />
+      <div className="details">
+        <h2>{title}</h2>
+        <p>Por: {author}</p>
+        <p>Descripcion: {description}</p>
+        <p>Categoria:{category_id}</p>
+        <p><strong>Condicion:</strong> {condition}</p>
+        <p><strong>Ubicacion:</strong> {location}</p>
+        <p><em>Posted on: {new Date(createdAt).toLocaleDateString()}</em></p>
+        <p>Publicado por: {user_id}</p>
+      </div>
+      
     </div>
   );
 };
