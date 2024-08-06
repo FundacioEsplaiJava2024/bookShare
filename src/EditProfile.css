@@ -1,0 +1,64 @@
+/* EditProfile.css */
+
+.edit-profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px; /* Espacio entre columnas */
+}
+
+.column {
+  flex: 1; /* Cada columna tomará el mismo ancho */
+  padding: 10px;
+  border: 1px solid #ddd; /* Línea de borde para separar las columnas */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.profile-description {
+  background-color: #f9f9f9; /* Fondo ligeramente gris */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+}
+
+.profile-picture {
+  width: 100px; /* Tamaño de la imagen del perfil */
+  height: 100px;
+  border-radius: 50%; /* Imagen circular */
+  margin-right: 20px; /* Espacio entre la imagen y la información */
+  object-fit: cover; /* Asegura que la imagen se ajuste bien */
+}
+
+.profile-info {
+  flex: 1; /* La información de perfil ocupa el espacio restante */
+}
+
+.user-posts {
+  background-color: #fff; /* Fondo blanco */
+}
+
+.latest-posts {
+  background-color: #f0f0f0; /* Fondo ligeramente gris */
+}
+
+.post {
+  margin-bottom: 15px; /* Espacio entre publicaciones */
+}
+
+h2 {
+  font-size: 1.5em; /* Tamaño de fuente para los encabezados de sección */
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.2em; /* Tamaño de fuente para los títulos de las publicaciones */
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: 1em; /* Tamaño de fuente para los párrafos */
+  line-height: 1.5; /* Altura de línea para mejor legibilidad */
+}

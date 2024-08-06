@@ -2,32 +2,140 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8080/bookShare';
 
-export async function fetchBooks() {
-  try {
-    const response = await axios.get(`${API_URL}/books/list`);
-    return response.data; 
-  } catch (error) {
-    console.error('Error fetching books:', error);
-    throw error; 
+interface Book {
+    id: number;
+    title: string;
+    author: string;
+    description: string;
+    condition: string;
+    location: string;
+    createdAt: string;
+    updatedAt: string;
+    userId: number;
   }
-}
-
-export async function fetchBookById(id: number) {
-  try {
-    const response = await axios.get(`${API_URL}/books/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching book by ID:', error);
-    throw error;
+  
+  interface User {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
   }
-}
-
-export async function fetchBooksByCategory(category: string) {
-  try {
-    const response = await axios.get(`${API_URL}/books?category=${category}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching books by category:', error);
-    throw error;
+  export async function fetchBooks() {
+    try {
+      const response = await axios.get(`${API_URL}/books/list`);
+      return response.data; 
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      throw error; 
+    }
   }
-}
+  export async function fetchBookById(id: number) {
+    try {
+      const response = await axios.get(`${API_URL}/books/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching book by ID:', error);
+      throw error;
+    }
+  }
+  
+  export async function fetchBooksByCategory(category: string) {
+    try {
+      const response = await axios.get(`${API_URL}/books?category=${category}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching books by category:', error);
+      throw error;
+    }
+  }
+ 
+  export const createBook = async (book: Partial<Book>): Promise<Book> => {
+    const response = await fetch(`${API_URL}/books`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(book),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create book');
+    }
+    return await response.json();
+  };
+  
+  export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {
+    const response = await fetch(`${API_URL}/books/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(book),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update book with id ${id}`);
+    }
+    return await response.json();
+  };
+  
+  export const deleteBook = async (id: number): Promise<void> => {
+    const response = await fetch(`${API_URL}/books/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to delete book with id ${id}`);
+    }
+  };
+  
+  export const fetchUsers = async (): Promise<User[]> => {
+    const response = await fetch(`${API_URL}/users`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch users');
+    }
+    return await response.json();
+  };
+  
+  export const fetchUserById = async (id: number): Promise<User> => {
+    const response = await fetch(`${API_URL}/users/${id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch user with id ${id}`);
+    }
+    return await response.json();
+  };
+  
+  export const createUser = async (user: Partial<User>): Promise<User> => {
+    const response = await fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create user');
+    }
+    return await response.json();
+  };
+  
+  export const updateUser = async (id: number, user: Partial<User>): Promise<User> => {
+    const response = await fetch(`${API_URL}/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update user with id ${id}`);
+    }
+    return await response.json();
+  };
+  
+  export const deleteUser = async (id: number): Promise<void> => {
+    const response = await fetch(`${API_URL}/users/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to delete user with id ${id}`);
+    }
+  };
+    

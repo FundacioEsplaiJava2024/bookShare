@@ -9,7 +9,10 @@ const NavBar: React.FC = () => {
       </div>
       <nav>
         <Link to="/somos">Quienes somos?</Link>
-        <Link to="/perfil">Acceso/Registro</Link>
+         <Link to="/BookForm">Subir Libro</Link> {/* Actualizado el to prop */}
+         <Link to="/auth">Acceso/Registro</Link>
+         <Link to="/edit-profile">Edit Profile</Link> {/* Botón de Edit Profile */}
+      
       </nav>
     </header>
   );
