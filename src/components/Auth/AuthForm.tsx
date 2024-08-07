@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../AuthForm.module.css';
+import { createUser, loginUser } from '../../services/api';
 
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -25,6 +30,36 @@ const AuthForm: React.FC = () => {
     };
   }, []);
 
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const newUser = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      const user = await createUser(newUser);
+      console.log('Usuario creado:', user);
+    } catch (error) {
+      console.error('Error al crear usuario:', error);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const credentials = {
+        email: email,
+        password: password,
+      };
+      const user = await loginUser(credentials);
+      console.log('Login exitoso:', user);
+      // Aquí puedes agregar lógica para redirigir al usuario a una página de inicio o guardar el token de autenticación
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+    }
+  };
+
   return (
     <div className={styles.contenedor__todo}>
       <div className={styles.caja__trasera}>
@@ -42,19 +77,53 @@ const AuthForm: React.FC = () => {
 
       <div className={`${styles.contenedor__loginRegister} ${isLogin ? styles.login : styles.register}`}>
         {isLogin ? (
-          <form action="/login" method="POST" className={styles.formulario__login}>
+          <form onSubmit={handleLogin} className={styles.formulario__login}>
             <h2>Iniciar Sesión</h2>
-            <input type="text" placeholder="Correo Electronico" name="correo" required />
-            <input type="password" placeholder="Contraseña" name="contrasena" required />
+            <input
+              type="email"
+              placeholder="Correo electronico"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="contrasena"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <button type="submit">Entrar</button>
           </form>
         ) : (
-          <form action="/register" method="POST" className={styles.formulario__register}>
+          <form onSubmit={handleRegister} className={styles.formulario__register}>
             <h2>Regístrarse</h2>
-            <input type="text" placeholder="Nombre completo" name="nombre_completo" required />
-            <input type="text" placeholder="Correo Electronico" name="correo" required />
-            <input type="text" placeholder="Usuario" name="usuario" required />
-            <input type="password" placeholder="Contraseña" name="contrasena" required />
+            <input
+              type="text"
+              placeholder="Nombre completo"
+              name="nombre_completo"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Correo Electronico"
+              name="correo"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="contrasena"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <button type="submit">Regístrarse</button>
           </form>
         )}
