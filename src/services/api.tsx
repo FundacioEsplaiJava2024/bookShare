@@ -83,7 +83,18 @@ interface Book {
   console.error('Error al agregar usuario', error);
 }
 }
-
+export async function loginUser(credentials: {
+  email:string,
+  password: string,
+}): Promise<User | undefined> {
+  try {
+    const response = await axios.post(`${API_URL}/users/login`, credentials);
+    console.log('Login exitoso', response.data);
+    return response.data as User;
+  } catch (error) {
+    console.error('Error al iniciar sesión', error);
+  }
+}
   
   
   export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {

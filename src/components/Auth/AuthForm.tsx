@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../AuthForm.module.css';
-import {createUser} from '../../services/api';
+import { createUser, loginUser } from '../../services/api';
+
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [name,setname]= useState('');
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -27,6 +29,7 @@ const AuthForm: React.FC = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -39,6 +42,21 @@ const AuthForm: React.FC = () => {
       console.log('Usuario creado:', user);
     } catch (error) {
       console.error('Error al crear usuario:', error);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const credentials = {
+        email: email,
+        password: password,
+      };
+      const user = await loginUser(credentials);
+      console.log('Login exitoso:', user);
+      // Aquí puedes agregar lógica para redirigir al usuario a una página de inicio o guardar el token de autenticación
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
     }
   };
 
@@ -59,10 +77,24 @@ const AuthForm: React.FC = () => {
 
       <div className={`${styles.contenedor__loginRegister} ${isLogin ? styles.login : styles.register}`}>
         {isLogin ? (
-          <form action="/login" method="POST" className={styles.formulario__login}>
+          <form onSubmit={handleLogin} className={styles.formulario__login}>
             <h2>Iniciar Sesión</h2>
-            <input type="text" placeholder="Correo Electronico" name="correo" required />
-            <input type="password" placeholder="Contraseña" name="contrasena" required />
+            <input
+              type="email"
+              placeholder="Correo electronico"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="contrasena"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <button type="submit">Entrar</button>
           </form>
         ) : (
@@ -73,7 +105,7 @@ const AuthForm: React.FC = () => {
               placeholder="Nombre completo"
               name="nombre_completo"
               value={name}
-              onChange={(e) => setname(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               required
             />
             <input
@@ -81,7 +113,7 @@ const AuthForm: React.FC = () => {
               placeholder="Correo Electronico"
               name="correo"
               value={email}
-              onChange={(e) => setemail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
@@ -89,7 +121,7 @@ const AuthForm: React.FC = () => {
               placeholder="Contraseña"
               name="contrasena"
               value={password}
-              onChange={(e) => setpassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <button type="submit">Regístrarse</button>
