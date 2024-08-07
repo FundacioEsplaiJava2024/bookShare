@@ -20,6 +20,7 @@ header{
     justify-content: space-between;
     background-color: #3bce73;
     padding: 10px 5px;
+    position: relative;
 }
 header .logo img{
     width: 5rem;
@@ -41,6 +42,68 @@ header nav a:hover{
     border-radius: 20px;
     transition: all 1s ease;
 }
+/*CSS DE LA SEARCHBAR*/
+.search-bar-container{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.input-wrapper{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    height: 2.5rem;
+    box-shadow: 0 0 8px #ddd;
+    display: flex;
+    align-items: center;
+}
+.input-wrapper select#filter{
+        height: 100%;
+}
+.input-wrapper input{
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 5px;
+}
+.input-wrapper input:focus{
+    outline: none;
+}
+.search-bar-container button {
+    height: 100%;
+    padding: 10px;
+    border: none;
+    background-color: lightgrey;
+}
+.search-bar-container button:hover {
+    color: #165b2f;
+    background-color: #9ee6be;
+    cursor: pointer;
+    border: none !important;
+}
+.search-results{
+    top: 85%;
+    position: absolute;
+    background-color: rgb(255 255 255 / 0.75);
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    overflow-y: auto;
+    z-index: 10;
+}
+.result{
+    width: 95%;
+    margin: 0 auto;
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #165b2f;
+}
+.result:last-child{
+    border-bottom: none;
+}
 
 
 /* CSS DEL MAIN*/
@@ -55,6 +118,7 @@ header nav a:hover{
     color: black;
 }
 .home-page .slider-container{
+    padding-top: 50px;
     width: 80%;
     margin: 0 auto;
 }
@@ -80,6 +144,7 @@ header nav a:hover{
 }
 .home-page .container .book-post{
     display: flex;
+    min-width: 45%;
     margin-bottom: 50px;
 }
 .book-post{
