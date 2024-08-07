@@ -14,6 +14,7 @@ interface Book {
   created_at: string;
   updated_at: string;
   user_id: number;
+  book_image: string;
 }
 
 const HomePage: React.FC = () => {
@@ -49,7 +50,10 @@ const HomePage: React.FC = () => {
       category_id={book.category_id}
       createdAt={book.created_at}
       updatedAt={book.updated_at}
-      user_id={book.user_id} id={book.book_id}      />
+      user_id={book.user_id} 
+      id={book.book_id}
+      book_image={book.book_image}
+      />
   )))
   return (
     <div className="home-page">
@@ -67,8 +71,9 @@ const HomePage: React.FC = () => {
             location={book.book_location}
             createdAt={book.created_at}
             updatedAt={book.updated_at}
-            user_id={book.user_id} 
-            id={book.book_id}/>
+            user_id={book.user_id}
+            id={book.book_id} 
+            book_image={book.book_image}/>
         ))}
       </div>
       
