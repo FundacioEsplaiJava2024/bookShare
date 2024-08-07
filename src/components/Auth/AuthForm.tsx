@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../AuthForm.module.css';
-
+import {createUser} from '../../services/api';
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [name,setname]= useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -24,6 +27,20 @@ const AuthForm: React.FC = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const newUser = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      const user = await createUser(newUser);
+      console.log('Usuario creado:', user);
+    } catch (error) {
+      console.error('Error al crear usuario:', error);
+    }
+  };
 
   return (
     <div className={styles.contenedor__todo}>
@@ -49,12 +66,32 @@ const AuthForm: React.FC = () => {
             <button type="submit">Entrar</button>
           </form>
         ) : (
-          <form action="/register" method="POST" className={styles.formulario__register}>
+          <form onSubmit={handleRegister} className={styles.formulario__register}>
             <h2>Regístrarse</h2>
-            <input type="text" placeholder="Nombre completo" name="nombre_completo" required />
-            <input type="text" placeholder="Correo Electronico" name="correo" required />
-            <input type="text" placeholder="Usuario" name="usuario" required />
-            <input type="password" placeholder="Contraseña" name="contrasena" required />
+            <input
+              type="text"
+              placeholder="Nombre completo"
+              name="nombre_completo"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Correo Electronico"
+              name="correo"
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="contrasena"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
+              required
+            />
             <button type="submit">Regístrarse</button>
           </form>
         )}

@@ -69,6 +69,21 @@ interface Book {
       console.error('Error al agregar el libro', error);
     }
   }
+
+ export async function createUser(newUser:{
+  name:string,
+  password:string,
+  email:string,
+ }) : Promise <User|undefined>{
+ try{
+  const response = await axios.post(`${API_URL}/users/add`, newUser);
+  console.log('Usuario agregado',response.data);
+  return response.data as User;
+ }catch(error) {
+  console.error('Error al agregar usuario', error);
+}
+}
+
   
   
   export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {
@@ -110,19 +125,7 @@ interface Book {
     return await response.json();
   };
   
-  export const createUser = async (user: Partial<User>): Promise<User> => {
-    const response = await fetch(`${API_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to create user');
-    }
-    return await response.json();
-  };
+ 
   
   export const updateUser = async (id: number, user: Partial<User>): Promise<User> => {
     const response = await fetch(`${API_URL}/users/${id}`, {
