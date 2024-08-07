@@ -11,6 +11,7 @@ interface Book {
   createdAt: string;
   updatedAt: string;
   userName: string;
+  book_image: string;
 }
 
 interface BookItemProps {
@@ -30,6 +31,7 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
       <p>{book.createdAt}</p>
       <p>{book.updatedAt}</p>
       <p>{book.userName}</p>
+      <p>{book.book_image}</p>
     </div>
   );
 };

@@ -12,6 +12,7 @@ interface Book {
   createdAt: string;
   updatedAt: string;
   userName: string;
+  book_image: string;
 }
 
 interface BookListProps {

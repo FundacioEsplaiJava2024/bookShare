@@ -6,7 +6,7 @@ const EditProfile: React.FC = () => {
   const profile = {
     username: 'usuarioEjemplo',
     description: '¡Hola! Soy un usuario de ejemplo. Este es un perfil ficticio para propósitos de demostración.',
-    profilePicture: '/path/to/profile-picture.jpg' // Ruta a la imagen de perfil
+    profilePicture: 'public/users_images/canario.jpg' // Ruta a la imagen de perfil
   };
 
   const posts = [
@@ -23,7 +23,7 @@ const EditProfile: React.FC = () => {
         <h2>Descripción del Perfil</h2>
         <div className="profile-header">
           <img
-            src={profile.profilePicture}
+            src={`../../${profile.profilePicture}`}
             alt={`${profile.username}'s profile`}
             className="profile-picture"
           />
