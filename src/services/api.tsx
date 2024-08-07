@@ -121,7 +121,7 @@ export async function loginUser(credentials: {
   };
   
   export const fetchUsers = async (): Promise<User[]> => {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${API_URL}/users/list`);
     if (!response.ok) {
       throw new Error('Failed to fetch users');
     }
