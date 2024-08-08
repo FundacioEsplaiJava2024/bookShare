@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
   const handleLogout = () => { 
     // Perform logout actions here (e.g., clear session, remove authentication token) 
     // After logout, redirect to the login page 
+    console.log("Te has deslogeado");
     history('/HomePage'); 
 }; 
 
@@ -46,9 +47,7 @@ const HomePage: React.FC = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-  <div className="text-center"> 
-                    <button type="button" className="btn btn-primary mt-3" onClick={handleLogout}>Logout</button> 
-                </div> 
+  
   console.log(books.map((book) => (
     <BookPost
       author={book.book_author}
@@ -69,6 +68,11 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <ImageSlider />
       <h1>Libros disponibles para solicitar:</h1>
+      <div className="text-center"> 
+                    <button type="button" className="btn btn-primary mt-3" onClick={handleLogout}>Logout</button> 
+                </div> 
+               
+                
       <div className="container">
         {books.map((book) => (
           <BookPost

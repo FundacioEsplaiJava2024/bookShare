@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<AuthForm />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/HomePage" element={<HomePage />} />
         <Route path="/books/:id" element={<BookDetailPage />} />
         <Route path="/categories/:category" element={<CategoryPage />} />
         <Route path="/auth" Component={AuthForm} />
