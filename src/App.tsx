@@ -14,6 +14,7 @@ const App: React.FC = () => {
     <Router>
       <NavBar />
       <Routes>
+        <Route path="/" element={<AuthForm />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/books/:id" element={<BookDetailPage />} />
         <Route path="/categories/:category" element={<CategoryPage />} />
