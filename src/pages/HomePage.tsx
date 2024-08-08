@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
     // Perform logout actions here (e.g., clear session, remove authentication token) 
     // After logout, redirect to the login page 
     console.log("Te has deslogeado");
-    history('/HomePage'); 
+    history('/'); 
 }; 
 
   useEffect(() => {
