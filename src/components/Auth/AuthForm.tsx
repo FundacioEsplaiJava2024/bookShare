@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../AuthForm.module.css';
 import { createUser, loginUser } from '../../services/api';
-
+import { useNavigate } from 'react-router-dom'; // Import useHistory hook 
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userId, setUserId] = useState('');
+  const [error, setError] = useState(''); // State to manage error messages 
+  const history = useNavigate(); // Get the history object for redirection 
+  
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -40,6 +42,11 @@ const AuthForm: React.FC = () => {
       };
       const user = await createUser(newUser);
       console.log('Usuario creado:', user);
+      if (user) {
+        history('/HomePage');
+      } else {
+        setError('Failed to create user');
+      } 
     } catch (error) {
       console.error('Error al crear usuario:', error);
     }
@@ -54,6 +61,11 @@ const AuthForm: React.FC = () => {
       };
       const user = await loginUser(credentials);
       console.log('Login exitoso:', user);
+      if (user) {
+        history('/HomePage');
+      } else {
+        setError('Invalid username or password');
+      }
       // Aquí puedes agregar lógica para redirigir al usuario a una página de inicio o guardar el token de autenticación
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -95,6 +107,7 @@ const AuthForm: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+             {error && <div style={{ color: 'red' }}>{error}</div>}
             <button type="submit">Entrar</button>
           </form>
         ) : (
@@ -125,6 +138,7 @@ const AuthForm: React.FC = () => {
               required
             />
             <button type="submit">Regístrarse</button>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
           </form>
         )}
       </div>

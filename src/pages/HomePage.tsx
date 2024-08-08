@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BookPost from '../components/BookPost';
 import ImageSlider from '../components/ImageSlider';
 import '../index.css';
+import { useNavigate} from 'react-router-dom'; 
 
 interface Book {
   book_author: string;
@@ -20,6 +21,13 @@ interface Book {
 const HomePage: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const history = useNavigate(); 
+  const handleLogout = () => { 
+    // Perform logout actions here (e.g., clear session, remove authentication token) 
+    // After logout, redirect to the login page 
+    console.log("Te has deslogeado");
+    history('/'); 
+}; 
 
   useEffect(() => {
     fetch('http://127.0.0.1:8080/bookShare/books/list')
@@ -39,6 +47,7 @@ const HomePage: React.FC = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
+  
   console.log(books.map((book) => (
     <BookPost
       author={book.book_author}
@@ -59,6 +68,11 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <ImageSlider />
       <h1>Libros disponibles para solicitar:</h1>
+      <div className="text-center"> 
+                    <button type="button" className="btn btn-primary mt-3" onClick={handleLogout}>Logout</button> 
+                </div> 
+               
+                
       <div className="container">
         {books.map((book) => (
           <BookPost
