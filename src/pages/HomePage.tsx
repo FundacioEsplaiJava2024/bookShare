@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BookPost from '../components/BookPost';
+import BookPost from '../components/Book/BookPost';
 import ImageSlider from '../components/ImageSlider';
 import '../index.css';
 

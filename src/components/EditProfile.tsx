@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UserProfile from './UserProfile';
+import UserProfile from './User/UserProfile';
 import '../EditProfile.css'; // Importa el archivo CSS
 
 interface User {

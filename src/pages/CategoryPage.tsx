@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BookList from '../components/BookList';
+import BookList from '../components/Book/BookList';
 import { fetchBooksByCategory } from '../services/api';
 
 const CategoryPage: React.FC = () => {
