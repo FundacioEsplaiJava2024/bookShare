@@ -23,6 +23,7 @@ const NavBar: React.FC = () => {
       <nav>
         <Link to="/somos">Quienes somos?</Link>
         <Link to="/auth">NombreUsuario</Link>
+        <Link to="/edit-profile">Edit Profile</Link>
       </nav>
     </header>
   );

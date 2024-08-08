@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import UserProfile from './UserProfile';
 import '../EditProfile.css'; // Importa el archivo CSS
 
+interface User {
+  user_id: number;
+  name: string;
+  created_at: string;
+  update_at: string;
+  user_image: string;
+}
+
 const EditProfile: React.FC = () => {
-  // Datos simulados
-  const profile = {
-    username: 'usuarioEjemplo',
-    description: '¡Hola! Soy un usuario de ejemplo. Este es un perfil ficticio para propósitos de demostración.',
-    profilePicture: 'public/users_images/canario.jpg' // Ruta a la imagen de perfil
-  };
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8080/bookShare/users/1')
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers([data]);
+        setLoading(false);
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error('Error fetching user:', error);
+        setLoading(false);
+      });
+  }, []);
 
   const posts = [
     { id: 1, title: 'Publicación 1', content: 'Contenido de la publicación 1.' },
@@ -16,21 +35,34 @@ const EditProfile: React.FC = () => {
     { id: 4, title: 'Publicación 4', content: 'Contenido de la publicación 4.' },
     { id: 5, title: 'Publicación 5', content: 'Contenido de la publicación 5.' },
   ];
-
+if (loading) {
+  return <p>Loading...</p>;
+}
+console.log(Array.isArray(users) && users.map((user) => (
+  <UserProfile
+    key={user.user_id}
+    name={user.name}
+    created_at={user.created_at}
+    update_at={user.update_at}
+    user_image={user.user_image}
+  />
+)))
   return (
     <div className="edit-profile-container">
       <div className="column profile-description">
         <h2>Descripción del Perfil</h2>
         <div className="profile-header">
-          <img
-            src={`../../${profile.profilePicture}`}
-            alt={`${profile.username}'s profile`}
-            className="profile-picture"
-          />
-          <div className="profile-info">
-            <p><strong>Usuario:</strong> {profile.username}</p>
-            <p>{profile.description}</p>
-          </div>
+          {
+            Array.isArray(users) && users.map((user) => (
+              <UserProfile
+                key={user.user_id}
+                name={user.name}
+                created_at={user.created_at}
+                update_at={user.update_at}
+                user_image={user.user_image}
+              />
+            ))
+          }
         </div>
       </div>
 
