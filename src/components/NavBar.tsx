@@ -8,7 +8,7 @@ const NavBar: React.FC = () => {
   return (
     <header>
       <div className='logo'>
-        <Link to="/"><img src="img/originLogo.jpeg" alt="index" /></Link>
+        <Link to="/HomePage"><img src="img/originLogo.jpeg" alt="index" /></Link>
       </div>
       <div className="search-bar-container">
         <SearchBar setSearchResults={setSearchResults} />
@@ -22,7 +22,9 @@ const NavBar: React.FC = () => {
       </div>
       <nav>
         <Link to="/somos">Quienes somos?</Link>
+        <Link to="/edit-profile">Perfil</Link>
         <Link to="/auth">NombreUsuario</Link>
+        <Link to="/BookForm">Añadir Libro </Link>
       </nav>
     </header>
   );
