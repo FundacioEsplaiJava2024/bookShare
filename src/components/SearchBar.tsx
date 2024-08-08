@@ -1,19 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { fetchUsers, fetchBooks } from "../services/api";
+import { fetchUsers, fetchBooks, Book, User } from "../services/api";
 
-interface Book {
-  book_id: number;
-  book_title: string;
-  book_author: string;
-}
-
-interface User {
-  id: number;
-  name: string;
-}
 
 interface SearchBarProps {
-  setSearchResults: React.Dispatch<React.SetStateAction<(Book | User)[]>>;
+  setSearchResults: (results: (Book | User)[]) => void;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
@@ -25,16 +15,21 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
   const handleSearch = async () => {
     if (!input.trim()) return; // No hacer nada si el input está vacío
 
+    console.log("handle search");
+    console.log("filter ", filter);
+
     try {
       let response;
-      if (filter === "books") {
+      if (filter == "books") {
         response = await fetchBooks();
       } else {
         response = await fetchUsers();
       }
+
+      console.log("response ", response);
       // Filtrar resultados según la búsqueda
       const filteredResults = response.filter((item: Book | User) =>
-        (filter === "books" ? (item as Book).book_title : (item as User).name)
+        (filter == "books" ? (item as Book).book_title : (item as User).name)
           .toLowerCase()
           .includes(input.toLowerCase())
       );
@@ -84,7 +79,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
       <div className="search-results">
         {results.map((result, index) => (
           <div className="result" key={index}>
-            {filter === "books"
+            {filter == "books"
               ? (result as Book).book_title
               : (result as User).name}
           </div>
