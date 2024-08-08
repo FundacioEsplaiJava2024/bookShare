@@ -29,6 +29,15 @@ interface Book {
       throw error; 
     }
   }
+  export async function fetchUserBooks(userId: number): Promise<Book[]> {
+    try {
+      const response = await axios.get(`${API_URL}/books/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user books:', error);
+      throw error;
+    }
+  }
   export async function fetchBookById(id: number) {
     try {
       const response = await axios.get(`${API_URL}/books/${id}`);
@@ -159,5 +168,7 @@ export async function loginUser(credentials: {
     if (!response.ok) {
       throw new Error(`Failed to delete user with id ${id}`);
     }
+    
+    
   };
     
