@@ -42,7 +42,11 @@ const AuthForm: React.FC = () => {
       };
       const user = await createUser(newUser);
       console.log('Usuario creado:', user);
-      history('/HomePage'); 
+      if (user) {
+        history('/HomePage');
+      } else {
+        setError('Failed to create user');
+      } 
     } catch (error) {
       console.error('Error al crear usuario:', error);
     }
@@ -57,7 +61,11 @@ const AuthForm: React.FC = () => {
       };
       const user = await loginUser(credentials);
       console.log('Login exitoso:', user);
-      history('/HomePage'); 
+      if (user) {
+        history('/HomePage');
+      } else {
+        setError('Invalid username or password');
+      }
       // Aquí puedes agregar lógica para redirigir al usuario a una página de inicio o guardar el token de autenticación
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -99,6 +107,7 @@ const AuthForm: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+             {error && <div style={{ color: 'red' }}>{error}</div>}
             <button type="submit">Entrar</button>
           </form>
         ) : (
