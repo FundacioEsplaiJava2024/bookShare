@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
+import { Book, User } from '../services/api'; // Importa las interfaces si es necesario
 
 const NavBar: React.FC = () => {
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<(Book | User)[]>([]);
 
   return (
     <header>
@@ -12,17 +13,11 @@ const NavBar: React.FC = () => {
       </div>
       <div className="search-bar-container">
         <SearchBar setSearchResults={setSearchResults} />
-        <div className="search-results">
-          {searchResults.map(result => (
-            <div className='result' key={result.id}>
-              {result.book_title ? result.book_title : result.name}
-            </div>
-          ))}
-        </div>
+        <div></div>
       </div>
       <nav>
         <Link to="/somos">Quienes somos?</Link>
-        <Link to="/auth">NombreUsuario</Link>
+        <Link to="/auth">NombreUser</Link>    
       </nav>
     </header>
   );
