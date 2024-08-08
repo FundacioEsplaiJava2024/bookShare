@@ -5,7 +5,7 @@ import Footer from './components/footer';
 import BookDetailPage from './pages/BookDetailPage';
 import CategoryPage from './pages/CategoryPage';
 import NavBar from './components/NavBar';
-import BookForm from './components/BookForm';
+import BookForm from './components/Book/BookForm';
 import EditProfile from './components/EditProfile';
 import HomePage from './pages/HomePage';
 
