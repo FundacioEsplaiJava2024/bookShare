@@ -138,6 +138,7 @@ const AuthForm: React.FC = () => {
               required
             />
             <button type="submit">Regístrarse</button>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
           </form>
         )}
       </div>
