@@ -133,7 +133,7 @@ header nav a:hover{
     padding: 25px 0;
     font-size: 20px;
     width: 50%;
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid #165b2f;
 }
 
 .home-page .container{
@@ -144,14 +144,18 @@ header nav a:hover{
 }
 .home-page .container .book-post{
     display: flex;
-    min-width: 45%;
+    width: 95%;
     margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #165b2f;
 }
-.book-post{
-    display: flex;
+.home-page .container .book-post:last-child{
+    border-bottom: none;
 }
 .book-post img{
     margin-right: 30px;
+    width: 15rem;
+    height: 24rem;
 }
 
 /*CSS DEL FOOTER*/
