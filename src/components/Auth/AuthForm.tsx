@@ -60,7 +60,10 @@ const AuthForm: React.FC = () => {
         password: password,
       };
       const user = await loginUser(credentials);
+      sessionStorage.setItem("userId",""+user?.user_id);
       console.log('Login exitoso:', user);
+      console.log('saving user id', user?.user_id);
+      console.log('saved user id', sessionStorage.getItem("userId"))
       if (user) {
         history('/HomePage');
       } else {

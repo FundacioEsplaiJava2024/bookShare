@@ -14,8 +14,12 @@ const EditProfile: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
+
+  
   useEffect(() => {
-    fetch('http://127.0.0.1:8080/bookShare/users/1')
+    
+    const userId = sessionStorage.getItem("userId");
+    fetch(`http://127.0.0.1:8080/bookShare/users/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setUsers([data]);

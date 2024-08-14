@@ -15,7 +15,7 @@ interface Book {
   }
   
   interface User {
-    id: number;
+    user_id: number;
     name: string;
     email: string;
     password: string;
@@ -99,7 +99,7 @@ export async function loginUser(credentials: {
   try {
     const response = await axios.post(`${API_URL}/users/login`, credentials);
     console.log('Login exitoso', response.data);
-    return response.data as User;
+    return response.data.user as User;
   } catch (error) {
     console.error('Error al iniciar sesión', error);
   }
