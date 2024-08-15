@@ -49,6 +49,8 @@ const EditProfile: React.FC = () => {
     fetch(`http://127.0.0.1:8080/bookShare/books/user/${userId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log('Response data:', data);
+        data.forEach((book: { id: any; }) => console.log('Book ID:', book.id)); // Verifica los IDs de los libros
         setBooks(data);
       })
       .catch((error) => {
@@ -83,7 +85,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(books) && books.map((book) => (
             <BookPost
               key={book.id}  // Clave única para cada libro
-              id={book.id}
+              id={book.id}   // Pasando el ID como una prop separada
               title={book.title}
               author={book.author}
               description={book.description}
