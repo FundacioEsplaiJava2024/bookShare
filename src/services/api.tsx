@@ -108,21 +108,19 @@ export async function loginUser(credentials: {
 }
   
   
-export const updateBook = async (bookId: number, bookData: any) => {
-  const response = await fetch(`http://127.0.0.1:8080/bookShare/books/update/${bookId}`, {
-      method: 'POST',
+  export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {
+    const response = await fetch(`${API_URL}/books/${id}`, {
+      method: 'PUT',
       headers: {
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(bookData),
-  });
-
-  if (!response.ok) {
-      throw new Error('Failed to update book');
-  }
-
-  return response.json();
-};
+      body: JSON.stringify(book),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update book with id ${id}`);
+    }
+    return await response.json();
+  };
   
   export const deleteBook = async (id: number): Promise<void> => {
     const response = await fetch(`${API_URL}/books/${id}`, {
