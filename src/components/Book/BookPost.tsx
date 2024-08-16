@@ -7,7 +7,7 @@ interface BookPostProps {
   title: string;
   author: string;
   description: string;
-  condition: string;
+  book_condition: string;
   location: string;
   createdAt: string;
   updatedAt: string;
@@ -17,11 +17,11 @@ interface BookPostProps {
 const BookPost: React.FC<BookPostProps> = (book) => {
   const [isEditing, setIsEditing] = useState(false);
   const [bookData, setBookData] = useState({
-    title: book.title,
-    author: book.author,
-    description: book.description,
-    condition: book.condition,
-    location: book.location,
+    book_title: book.title,
+    book_author: book.author,
+    book_description: book.description,
+    book_condition: book.book_condition,
+    book_location: book.location,
     book_image: book.book_image
   });
 
@@ -56,32 +56,32 @@ const BookPost: React.FC<BookPostProps> = (book) => {
           <h3>Edit Book</h3>
           <input
             type="text"
-            name="title"
-            value={bookData.title}
+            name="book_title"
+            value={bookData.book_title}
             onChange={handleInputChange}
           />
           <input
             type="text"
-            name="author"
-            value={bookData.author}
+            name="book_author"
+            value={bookData.book_author}
             onChange={handleInputChange}
           />
           <input
             type="text"
-            name="description"
-            value={bookData.description}
+            name="book_description"
+            value={bookData.book_description}
             onChange={handleInputChange}
           />
           <input
             type="text"
-            name="condition"
-            value={bookData.condition}
+            name="book_condition"
+            value={bookData.book_condition}
             onChange={handleInputChange}
           />
           <input
             type="text"
-            name="location"
-            value={bookData.location}
+            name="book_location"
+            value={bookData.book_location}
             onChange={handleInputChange}
           />
           <input
@@ -98,7 +98,7 @@ const BookPost: React.FC<BookPostProps> = (book) => {
           <h2>{book.title}</h2>
           <p>{book.author}</p>
           <p>{book.description}</p>
-          <p>{book.condition}</p>
+          <p>{book.book_condition}</p>
           <p>{book.location}</p>
           <img src={book.book_image} alt={book.title} />
           <button onClick={handleEditClick}>Edit</button>

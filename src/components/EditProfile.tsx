@@ -91,7 +91,7 @@ const EditProfile: React.FC = () => {
               title={book.book_title}
               author={book.book_author}
               description={book.book_description}
-              condition={book.book_condition}
+              book_condition={book.book_condition}
               location={book.book_location}
               createdAt={book.created_at}
               updatedAt={book.updated_at}
