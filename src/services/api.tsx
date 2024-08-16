@@ -59,22 +59,24 @@ interface Book {
   }
  
   export async function createBook(bookData: {
-    user_id: number,
-    
+    userId: number,
+    book_id:number,
     category_id:number,
     book_title:string,
     book_author:string,
     book_description:string,
     book_condition:string,
     book_location:string,
-    created_at:null,
-    updated_at:null,
+    created_at:string,
+    updated_at:string,
+    book_image:string
   }) : Promise<Book|undefined>{
     try {
       const response = await axios.post(`${API_URL}/books/add`, bookData);
       console.log('Libro agregado', response.data);
       return response.data as Book;
     } catch(error) {
+      console.log(bookData);
       console.error('Error al agregar el libro', error);
     }
   }
