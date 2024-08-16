@@ -12,16 +12,16 @@ interface User {
 }
 
 interface Book {
-  author: string;
-  condition: string;
-  description: string;
-  id: number;
-  location: string;
-  title: string;
+  userId: number;
+  book_id: number;
   category_id: number;
-  createdAt: string;
-  updatedAt: string;
-  user_id: number;
+  book_title: string;
+  book_author: string;
+  book_description: string;
+  book_condition: string;
+  book_location: string;
+  created_at: string;
+  updated_at: string;
   book_image: string;
 }
 
@@ -50,7 +50,7 @@ const EditProfile: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Response data:', data);
-        data.forEach((book: { id: any; }) => console.log('Book ID:', book.id)); // Verifica los IDs de los libros
+        data.forEach((book: { book_id: any, book_title: any; }) => console.log('Book ID:', book.book_id, book.book_title)); // Verifica los IDs de los libros
         setBooks(data);
       })
       .catch((error) => {
@@ -84,17 +84,17 @@ const EditProfile: React.FC = () => {
         <div className="books-list">
           {Array.isArray(books) && books.map((book) => (
             <BookPost
-              key={book.id}  // Clave única para cada libro
-              id={book.id}   // Pasando el ID como una prop separada
-              title={book.title}
-              author={book.author}
-              description={book.description}
-              condition={book.condition}
-              location={book.location}
+              key={book.book_id}  // Clave única para cada libro
+              user_id={book.userId}
+              book_id={book.book_id}   // Pasando el ID como una prop separada
               category_id={book.category_id}
-              createdAt={book.createdAt}
-              updatedAt={book.updatedAt}
-              user_id={book.user_id}
+              title={book.book_title}
+              author={book.book_author}
+              description={book.book_description}
+              condition={book.book_condition}
+              location={book.book_location}
+              createdAt={book.created_at}
+              updatedAt={book.updated_at}
               book_image={book.book_image}
             />
           ))}

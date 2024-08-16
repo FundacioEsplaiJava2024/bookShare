@@ -2,7 +2,7 @@ import React from 'react';
 import BookItem from './BookItem';
 
 interface Book {
-  id: number;
+  book_id: number;
   category_name: string;
   title: string;
   author: string;
@@ -23,7 +23,7 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
   return (
     <div>
       {books.map(book => (
-        <BookItem key={book.id} book={book} />
+        <BookItem key={book.book_id} book={book} />
       ))}
     </div>
   );
