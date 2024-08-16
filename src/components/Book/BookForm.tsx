@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import { createBook } from '../../services/api';
 
+
 const BookForm: React.FC = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
     const [condition, setCondition] = useState('');
     const [location, setLocation] = useState('');
-    const [userId, setUserId] = useState(1); // This should be dynamically set based on logged-in user
+    const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // This should be dynamically set based on logged-in user
     
     const [image, setImage] = useState<File | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newBook = {
-            user_id: userId,
-            // Set appropriate book_id
+            userId: userId,
+            book_id: 1,// Set appropriate book_id
             category_id: 1, // Set appropriate category_id
             book_title: title,
             book_author: author,
             book_description: description,
             book_condition: condition,
             book_location: location,
-            created_at: null,
-            updated_at: null
+            created_at: '2024-08-05 10:16:56',
+            updated_at: '2024-08-05 10:16:56',
+            book_image: 'public/books_images/Baldor.jpg',
         };
       
         try {

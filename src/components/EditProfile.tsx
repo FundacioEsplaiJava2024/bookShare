@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserProfile from './User/UserProfile';
-import '../EditProfile.css'; // Importa el archivo CSS
+import BookPost from './Book/BookPost';
+import '../EditProfile.css';
 
 interface User {
   user_id: number;
@@ -10,88 +11,94 @@ interface User {
   user_image: string;
 }
 
+interface Book {
+  userId: number;
+  book_id: number;
+  category_id: number;
+  book_title: string;
+  book_author: string;
+  book_description: string;
+  book_condition: string;
+  book_location: string;
+  created_at: string;
+  updated_at: string;
+  book_image: string;
+}
+
 const EditProfile: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8080/bookShare/users/1')
+    const userId = sessionStorage.getItem("userId");
+
+    // Fetch para obtener la información del usuario
+    fetch(`http://127.0.0.1:8080/bookShare/users/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setUsers([data]);
         setLoading(false);
-        console.log(data)
       })
       .catch((error) => {
         console.error('Error fetching user:', error);
         setLoading(false);
       });
+
+    // Fetch para obtener los libros del usuario logueado
+    fetch(`http://127.0.0.1:8080/bookShare/books/user/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Response data:', data);
+        data.forEach((book: { book_id: any, book_title: any; }) => console.log('Book ID:', book.book_id, book.book_title)); // Verifica los IDs de los libros
+        setBooks(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching books:', error);
+      });
   }, []);
 
-  const posts = [
-    { id: 1, title: 'Publicación 1', content: 'Contenido de la publicación 1.' },
-    { id: 2, title: 'Publicación 2', content: 'Contenido de la publicación 2.' },
-    { id: 3, title: 'Publicación 3', content: 'Contenido de la publicación 3.' },
-    { id: 4, title: 'Publicación 4', content: 'Contenido de la publicación 4.' },
-    { id: 5, title: 'Publicación 5', content: 'Contenido de la publicación 5.' },
-  ];
-if (loading) {
-  return <p>Loading...</p>;
-}
-console.log(Array.isArray(users) && users.map((user) => (
-  <UserProfile
-    key={user.user_id}
-    name={user.name}
-    created_at={user.created_at}
-    update_at={user.update_at}
-    user_image={user.user_image}
-  />
-)))
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="edit-profile-container">
       <div className="column profile-description">
         <h2>Descripción del Perfil</h2>
         <div className="profile-header">
-          {
-            Array.isArray(users) && users.map((user) => (
-              <UserProfile
-                key={user.user_id}
-                name={user.name}
-                created_at={user.created_at}
-                update_at={user.update_at}
-                user_image={user.user_image}
-              />
-            ))
-          }
+          {Array.isArray(users) && users.map((user) => (
+            <UserProfile
+              key={user.user_id}  // Clave única para cada usuario
+              name={user.name}
+              created_at={user.created_at}
+              update_at={user.update_at}
+              user_image={user.user_image}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="column user-posts">
-        <h2>Publicaciones realizadas</h2>
-        {posts.length > 0 ? (
-          posts.map(post => (
-            <div key={post.id} className="post">
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))
-        ) : (
-          <p>No hay publicaciones realizadas.</p>
-        )}
-      </div>
-
-      <div className="column latest-posts">
-        <h2>Últimas Publicaciones</h2>
-        {posts.length > 0 ? (
-          posts.slice(0, 3).map(post => (
-            <div key={post.id} className="post">
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))
-        ) : (
-          <p>No hay últimas publicaciones.</p>
-        )}
+      <div className="column user-books">
+        <h2>Libros del Usuario</h2>
+        <div className="books-list">
+          {Array.isArray(books) && books.map((book) => (
+            <BookPost
+              key={book.book_id}  // Clave única para cada libro
+              user_id={book.userId}
+              book_id={book.book_id}   // Pasando el ID como una prop separada
+              category_id={book.category_id}
+              title={book.book_title}
+              author={book.book_author}
+              description={book.book_description}
+              condition={book.book_condition}
+              location={book.book_location}
+              createdAt={book.created_at}
+              updatedAt={book.updated_at}
+              book_image={book.book_image}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

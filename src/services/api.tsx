@@ -15,7 +15,7 @@ interface Book {
   }
   
   interface User {
-    id: number;
+    user_id: number;
     name: string;
     email: string;
     password: string;
@@ -27,6 +27,15 @@ interface Book {
     } catch (error) {
       console.error('Error fetching books:', error);
       throw error; 
+    }
+  }
+  export async function fetchUserBooks(userId: number): Promise<Book[]> {
+    try {
+      const response = await axios.get(`${API_URL}/books/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user books:', error);
+      throw error;
     }
   }
   export async function fetchBookById(id: number) {
@@ -50,22 +59,24 @@ interface Book {
   }
  
   export async function createBook(bookData: {
-    user_id: number,
-    
+    userId: number,
+    book_id:number,
     category_id:number,
     book_title:string,
     book_author:string,
     book_description:string,
     book_condition:string,
     book_location:string,
-    created_at:null,
-    updated_at:null,
+    created_at:string,
+    updated_at:string,
+    book_image:string
   }) : Promise<Book|undefined>{
     try {
       const response = await axios.post(`${API_URL}/books/add`, bookData);
       console.log('Libro agregado', response.data);
       return response.data as Book;
     } catch(error) {
+      console.log(bookData);
       console.error('Error al agregar el libro', error);
     }
   }
@@ -90,7 +101,7 @@ export async function loginUser(credentials: {
   try {
     const response = await axios.post(`${API_URL}/users/login`, credentials);
     console.log('Login exitoso', response.data);
-    return response.data as User;
+    return response.data.user as User;
   } catch (error) {
     console.error('Error al iniciar sesión', error);
   }
@@ -159,5 +170,7 @@ export async function loginUser(credentials: {
     if (!response.ok) {
       throw new Error(`Failed to delete user with id ${id}`);
     }
+    
+    
   };
     
