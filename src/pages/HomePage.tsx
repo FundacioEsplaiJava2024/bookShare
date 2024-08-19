@@ -39,15 +39,15 @@ const HomePage: React.FC = () => {
   console.log(books.map((book) => (
     <BookPost
       author={book.book_author}
-      book_condition={book.condition}
-      description={book.description}
+      book_condition={book.book_condition}
+      description={book.book_description}
       key={book.book_id}
-      location={book.location}
+      location={book.book_location}
       title={book.book_title}
       category_id={book.category_id}
-      createdAt={book.createdAt}
-      updatedAt={book.updatedAt}
-      user_id={book.user_id} 
+      createdAt={book.created_at}
+      updatedAt={book.updated_at}
+      user_id={book.userId} 
       book_id={book.book_id}
       book_image={book.book_image}
       />
@@ -56,9 +56,6 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <ImageSlider />
       <h1>Libros disponibles para solicitar:</h1>
-      <div className="text-center"> 
-                    <button type="button" className="btn btn-primary mt-3" onClick={handleLogout}>Logout</button> 
-                </div> 
                
                 
       <div className="container">
@@ -68,12 +65,12 @@ const HomePage: React.FC = () => {
             category_id={book.category_id}
             title={book.book_title}
             author={book.book_author}
-            description={book.description}
-            book_condition={book.condition}
-            location={book.location}
-            createdAt={book.createdAt}
-            updatedAt={book.updatedAt}
-            user_id={book.user_id}
+            description={book.book_description}
+            book_condition={book.book_condition}
+            location={book.book_location}
+            createdAt={book.created_at}
+            updatedAt={book.updated_at}
+            user_id={book.userId}
             book_id={book.book_id} 
             book_image={book.book_image}/>
         ))}

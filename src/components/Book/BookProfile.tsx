@@ -61,7 +61,7 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
   };
 
   return (
-    <div>
+    <div className='book-listItem'>
       {isEditing ? (
         <div>
           <h3>Edit Book</h3>
@@ -105,17 +105,23 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
           <button onClick={() => setIsEditing(false)}>Cancel</button>
         </div>
       ) : (
-        <div>
-          <h2>{book.title}</h2>
-          <p>{book.author}</p>
-          <p>{book.description}</p>
-          <p>{book.book_condition}</p>
-          <p>{book.location}</p>
-          <img src={book.book_image} alt={book.title} />
-          <button onClick={handleEditClick}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+        <div className='book-listDetails'>
+          <div className="imgProfile">
+            <img src={book.book_image} alt={book.title} />
+          </div>
+          <div className="detailsBookProfile">
+            <h2>{book.title}</h2>
+            <p>Autor:{book.author}</p>
+            <p>Descripcion:{book.description}</p>
+            <p>Condicion:{book.book_condition}</p>
+            <p>Ubicacion:{book.location}</p>
+          </div>
         </div>
       )}
+      <div className="bookButtons">
+        <button onClick={handleEditClick}>Editar</button>
+        <button onClick={handleDelete}>Eliminar</button>
+      </div>
     </div>
   );
 };
