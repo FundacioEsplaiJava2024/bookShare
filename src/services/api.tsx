@@ -164,13 +164,23 @@ export const updateUser = async (id: number, user: Partial<User>): Promise<User>
 };
 
 
-export const uploadImage = async (formData: FormData) => {
-  const response = await axios.post('/bookShare/books/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response.data; // La URL de la imagen
+export const uploadImage = async (formData: FormData): Promise<string> => {
+  try {
+      const response = await fetch(`${API_URL}/books/upload`, {
+          method: 'POST',
+          body: formData,
+      });
+
+      if (!response.ok) {
+          const errorText = await response.text(); // Obtener texto del error
+          throw new Error(`Error uploading image: ${errorText}`);
+      }
+
+      return await response.text(); // La ruta pública de la imagen
+  } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
+  }
 };
 export const deleteUser = async (id: number): Promise<void> => {
   const response = await fetch(`${API_URL}/users/${id}`, {
