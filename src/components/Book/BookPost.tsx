@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface BookPostProps {
   user_id: number;
@@ -7,28 +7,103 @@ interface BookPostProps {
   title: string;
   author: string;
   description: string;
-  condition: string;
+  book_condition: string;
   location: string;
   createdAt: string;
   updatedAt: string;
-  book_image: String;
+  book_image: string;
 }
 
-const BookPost: React.FC<BookPostProps> = ({ user_id, book_id, category_id, title, author, description, condition, location, createdAt, updatedAt, book_image }) => {
+const BookPost: React.FC<BookPostProps> = (book) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [bookData, setBookData] = useState({
+    book_title: book.title,
+    book_author: book.author,
+    book_description: book.description,
+    book_condition: book.book_condition,
+    book_location: book.location,
+    book_image: book.book_image
+  });
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setBookData({ ...bookData, [name]: value });
+  };
+
+  const handleUpdate = async () => {
+    try {
+      // Implement the update logic here
+      console.log('hola', bookData)
+      await fetch(`http://127.0.0.1:8080/bookShare/books/update/${book.book_id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...bookData, created_at: book.createdAt, updated_at: '2024-08-05 10:16:56', userId: book.user_id }),
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating book:', error);
+    }
+  };
+
   return (
-    <div className="book-post">
-      <img src={`../../${book_image}`} alt="prueba" />
-      <div className="details">
-        <h2>{title}</h2>
-        <p>Por: {author}</p>
-        <p>Descripcion: {description}</p>
-        <p>Categoria:{category_id}</p>
-        <p><strong>Condicion:</strong> {condition}</p>
-        <p><strong>Ubicacion:</strong> {location}</p>
-        <p><em>Posted on: {new Date(createdAt).toLocaleDateString()}</em></p>
-        <p>Publicado por: {user_id}</p>
-      </div>
-      
+    <div>
+      {isEditing ? (
+        <div>
+          <h3>Edit Book</h3>
+          <input
+            type="text"
+            name="book_title"
+            value={bookData.book_title}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="book_author"
+            value={bookData.book_author}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="book_description"
+            value={bookData.book_description}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="book_condition"
+            value={bookData.book_condition}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="book_location"
+            value={bookData.book_location}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="book_image"
+            value={bookData.book_image}
+            onChange={handleInputChange}
+          />
+          <button onClick={handleUpdate}>Update</button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        </div>
+      ) : (
+        <div>
+          <h2>{book.title}</h2>
+          <p>{book.author}</p>
+          <p>{book.description}</p>
+          <p>{book.book_condition}</p>
+          <p>{book.location}</p>
+          <img src={book.book_image} alt={book.title} />
+          <button onClick={handleEditClick}>Edit</button>
+        </div>
+      )}
     </div>
   );
 };
