@@ -2,21 +2,9 @@ import React, { useEffect, useState } from 'react';
 import BookPost from '../components/Book/BookPost';
 import ImageSlider from '../components/ImageSlider';
 import '../index.css';
-import { useNavigate} from 'react-router-dom'; 
+import { useNavigate} from 'react-router-dom';
+import {Book} from "../services/api";
 
-interface Book {
-  book_author: string;
-  book_condition: string;
-  book_description: string;
-  book_id: number;
-  book_location: string;
-  book_title: string;
-  category_id: number;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  book_image: string;
-}
 
 const HomePage: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -51,14 +39,14 @@ const HomePage: React.FC = () => {
   console.log(books.map((book) => (
     <BookPost
       author={book.book_author}
-      condition={book.book_condition}
-      description={book.book_description}
+      book_condition={book.condition}
+      description={book.description}
       key={book.book_id}
-      location={book.book_location}
+      location={book.location}
       title={book.book_title}
       category_id={book.category_id}
-      createdAt={book.created_at}
-      updatedAt={book.updated_at}
+      createdAt={book.createdAt}
+      updatedAt={book.updatedAt}
       user_id={book.user_id} 
       book_id={book.book_id}
       book_image={book.book_image}
@@ -80,11 +68,11 @@ const HomePage: React.FC = () => {
             category_id={book.category_id}
             title={book.book_title}
             author={book.book_author}
-            description={book.book_description}
-            condition={book.book_condition}
-            location={book.book_location}
-            createdAt={book.created_at}
-            updatedAt={book.updated_at}
+            description={book.description}
+            book_condition={book.condition}
+            location={book.location}
+            createdAt={book.createdAt}
+            updatedAt={book.updatedAt}
             user_id={book.user_id}
             book_id={book.book_id} 
             book_image={book.book_image}/>

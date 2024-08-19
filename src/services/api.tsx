@@ -12,9 +12,11 @@ export interface Book {
     createdAt: string;
     updatedAt: string;
     user_id: number;
+    category_id: number;
+    book_image: string;
   }
   
-  interface User {
+  export interface User {
     user_id: number;
     name: string;
     email: string;
