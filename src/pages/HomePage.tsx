@@ -60,7 +60,7 @@ const HomePage: React.FC = () => {
       createdAt={book.created_at}
       updatedAt={book.updated_at}
       user_id={book.user_id} 
-      id={book.book_id}
+      book_id={book.book_id}
       book_image={book.book_image}
       />
   )))
@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
             createdAt={book.created_at}
             updatedAt={book.updated_at}
             user_id={book.user_id}
-            id={book.book_id} 
+            book_id={book.book_id} 
             book_image={book.book_image}/>
         ))}
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Book {
-  id: number;
+  book_id: number;
   category_name: string;
   title: string;
   author: string;
@@ -21,7 +21,7 @@ interface BookItemProps {
 const BookItem: React.FC<BookItemProps> = ({ book }) => {
   return (
     <div>
-      <p>{book.id}</p>
+      <p>{book.book_id}</p>
       <h2>{book.title}</h2>
       <p>{book.category_name}</p>
       <p>{book.author}</p>

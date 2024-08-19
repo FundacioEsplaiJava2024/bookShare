@@ -1,5 +1,3 @@
-/* EditProfile.css */
-
 .edit-profile-container {
   display: flex;
   justify-content: space-between;
@@ -9,19 +7,21 @@
 
 .column {
   flex: 1; /* Cada columna tomará el mismo ancho */
-  padding: 10px;
-  border: 1px solid #ddd; /* Línea de borde para separar las columnas */
-  border-radius: 5px; /* Bordes redondeados */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  padding: 20px;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #e0e0e0; /* Borde suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .profile-description {
-  background-color: #f9f9f9; /* Fondo ligeramente gris */
+  background-color: #f0f0f0; /* Fondo gris claro */
 }
 
 .profile-header {
   display: flex;
   align-items: center; /* Centra verticalmente los elementos */
+  margin-bottom: 20px; /* Espacio inferior */
 }
 
 .profile-picture {
@@ -29,19 +29,23 @@
   height: 100px;
   border-radius: 50%; /* Imagen circular */
   margin-right: 20px; /* Espacio entre la imagen y la información */
-  object-fit: cover; /* Asegura que la imagen se ajuste bien */
+  object-fit: cover; /* Ajusta la imagen dentro del contenedor */
 }
 
 .profile-info {
   flex: 1; /* La información de perfil ocupa el espacio restante */
 }
 
-.user-posts {
-  background-color: #fff; /* Fondo blanco */
+.user-books {
+  background-color: #ffffff; /* Fondo blanco */
 }
 
+.user-posts,
 .latest-posts {
-  background-color: #f0f0f0; /* Fondo ligeramente gris */
+  background-color: #f9f9f9; /* Fondo gris claro */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 .post {
@@ -54,11 +58,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2em; /* Tamaño de fuente para los títulos de las publicaciones */
+  font-size: 1.3em; /* Tamaño de fuente para los títulos de las publicaciones */
   margin-bottom: 5px;
 }
 
 p {
   font-size: 1em; /* Tamaño de fuente para los párrafos */
-  line-height: 1.5; /* Altura de línea para mejor legibilidad */
+  line-height: 1.6; /* Altura de línea para mejor legibilidad */
 }

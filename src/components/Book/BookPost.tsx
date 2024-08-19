@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface BookPostProps {
-  author: string;
-  condition: string;
-  description: string;
-  id: number;
-  location: string;
-  title: string;
+  user_id: number;
+  book_id: number;
   category_id: number;
+  title: string;
+  author: string;
+  description: string;
+  book_condition: string;
+  location: string;
   createdAt: string;
   updatedAt: string;
-  user_id: number;
-  book_image: String;
+  book_image: string;
 }
 
-const BookPost: React.FC<BookPostProps> = ({ author, condition, description, id, location, title, category_id, createdAt, updatedAt, user_id, book_image }) => {
+const BookPost: React.FC<BookPostProps> = (book) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [bookData, setBookData] = useState({
+    book_title: book.title,
+    book_author: book.author,
+    book_description: book.description,
+    book_condition: book.book_condition,
+    book_location: book.location,
+    book_image: book.book_image
+  });
+
   return (
-    <div className="book-post">
-      <img src={`../../${book_image}`} alt="prueba" />
-      <div className="details">
-        <h2>{title}</h2>
-        <p>Por: {author}</p>
-        <p>Descripcion: {description}</p>
-        <p>Categoria:{category_id}</p>
-        <p><strong>Condicion:</strong> {condition}</p>
-        <p><strong>Ubicacion:</strong> {location}</p>
-        <p><em>Posted on: {new Date(createdAt).toLocaleDateString()}</em></p>
-        <p>Publicado por: {user_id}</p>
-      </div>
-      
+    <div>
+        <div>
+          <h2>{book.title}</h2>
+          <p>{book.author}</p>
+          <p>{book.description}</p>
+          <p>{book.book_condition}</p>
+          <p>{book.location}</p>
+          <img src={book.book_image} alt={book.title} />
+          <br />
+        </div>
     </div>
   );
 };
