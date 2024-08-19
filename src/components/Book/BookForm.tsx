@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createBook } from '../../services/api';
+import axios from 'axios';
 
 
 const BookForm: React.FC = () => {
@@ -9,38 +10,88 @@ const BookForm: React.FC = () => {
     const [condition, setCondition] = useState('');
     const [location, setLocation] = useState('');
     const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // This should be dynamically set based on logged-in user
-    
+
     const [image, setImage] = useState<File | null>(null);
+
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     const newBook = {
+    //         userId: userId,
+    //         book_id: 1,// Set appropriate book_id
+    //         category_id: 1, // Set appropriate category_id
+    //         book_title: title,
+    //         book_author: author,
+    //         book_description: description,
+    //         book_condition: condition,
+    //         book_location: location,
+    //         created_at: '2024-08-05 10:16:56',
+    //         updated_at: '2024-08-05 10:16:56',
+    //         book_image: 'public/books_images/Baldor.jpg',
+    //     };
+
+    //     try {
+    //       await createBook(newBook);
+    //       alert('Libro agregado correctamente!');
+    //       // Limpiar el formulario
+    //       setTitle('');
+    //       setAuthor('');
+    //       setDescription('');
+    //       setCondition('');
+    //       setLocation('');
+    //     } catch (error) {
+    //       alert('Error al agregar libro');
+    //     }
+    //   };
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const newBook = {
-            userId: userId,
-            book_id: 1,// Set appropriate book_id
-            category_id: 1, // Set appropriate category_id
-            book_title: title,
-            book_author: author,
-            book_description: description,
-            book_condition: condition,
-            book_location: location,
-            created_at: '2024-08-05 10:16:56',
-            updated_at: '2024-08-05 10:16:56',
-            book_image: 'public/books_images/Baldor.jpg',
-        };
-      
-        try {
-          await createBook(newBook);
-          alert('Libro agregado correctamente!');
-          // Limpiar el formulario
-          setTitle('');
-          setAuthor('');
-          setDescription('');
-          setCondition('');
-          setLocation('');
-        } catch (error) {
-          alert('Error al agregar libro');
+
+        if (!image) {
+            alert('Por favor, selecciona una imagen.');
+            return;
         }
-      };
+
+        // Subir la imagen
+        const formData = new FormData();
+        formData.append('image', image);
+
+        try {
+            const uploadResponse = await axios.post('http://localhost:5000/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            const imagePath = uploadResponse.data.path;
+
+            const newBook = {
+                userId: userId,
+                book_id: 1, // Set appropriate book_id
+                category_id: 1, // Set appropriate category_id
+                book_title: title,
+                book_author: author,
+                book_description: description,
+                book_condition: condition,
+                book_location: location,
+                created_at: '2024-08-05 10:16:56',
+                updated_at: '2024-08-05 10:16:56',
+                book_image: imagePath, // Usar la ruta de la imagen subida
+            };
+
+            await createBook(newBook);
+            alert('Libro agregado correctamente!');
+            // Limpiar el formulario
+            setTitle('');
+            setAuthor('');
+            setDescription('');
+            setCondition('');
+            setLocation('');
+            setImage(null);
+        } catch (error) {
+            alert('Error al agregar libro');
+        }
+    };
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
