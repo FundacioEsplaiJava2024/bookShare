@@ -40,7 +40,7 @@ const HomePage: React.FC = () => {
     <BookPost
       author={book.book_author}
       book_condition={book.book_condition}
-      description={book.book_description}
+      book_description={book.book_description}
       key={book.book_id}
       location={book.book_location}
       title={book.book_title}
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
             category_id={book.category_id}
             title={book.book_title}
             author={book.book_author}
-            description={book.book_description}
+            book_description={book.book_description}
             book_condition={book.book_condition}
             location={book.book_location}
             createdAt={book.created_at}
