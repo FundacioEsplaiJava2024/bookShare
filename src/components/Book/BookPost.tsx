@@ -6,7 +6,7 @@ interface BookPostProps {
   category_id: number;
   title: string;
   author: string;
-  description: string;
+  book_description: string;
   book_condition: string;
   location: string;
   createdAt: string;
@@ -14,14 +14,14 @@ interface BookPostProps {
   book_image: string;
 }
 
-const BookPost: React.FC<BookPostProps> = ({ author, book_condition, description, location, title, category_id, createdAt, user_id, book_image }) => {
+const BookPost: React.FC<BookPostProps> = ({ author, book_condition, book_description, location, title, category_id, createdAt, user_id, book_image }) => {
   return (
     <div className="book-post">
       <img src={`../../${book_image}`} alt="prueba" />
       <div className="details">
         <h2>{title}</h2>
         <p>Por: {author}</p>
-        <p>Descripcion: {description}</p>
+        <p>Descripcion: {book_description}</p>
         <p>Categoria:{category_id}</p>
         <p><strong>Condicion:</strong> {book_condition}</p>
         <p><strong>Ubicacion:</strong> {location}</p>
