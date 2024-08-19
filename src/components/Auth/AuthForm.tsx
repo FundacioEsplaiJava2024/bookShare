@@ -60,16 +60,13 @@ const AuthForm: React.FC = () => {
         password: password,
       };
       const user = await loginUser(credentials);
-      sessionStorage.setItem("userId",""+user?.user_id);
-      console.log('Login exitoso:', user);
-      console.log('saving user id', user?.user_id);
-      console.log('saved user id', sessionStorage.getItem("userId"))
       if (user) {
+        sessionStorage.setItem("userId", "" + user.user_id);
+        sessionStorage.setItem("userName", user.name);  // Almacena el nombre del usuario
         history('/HomePage');
       } else {
         setError('Invalid username or password');
       }
-      // Aquí puedes agregar lógica para redirigir al usuario a una página de inicio o guardar el token de autenticación
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
     }
