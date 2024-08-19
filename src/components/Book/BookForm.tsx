@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { createBook } from '../../services/api';
-
+import { createBook, uploadImage } from '../../services/api'; // Asegúrate de que uploadImage esté disponible
 
 const BookForm: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -11,12 +10,21 @@ const BookForm: React.FC = () => {
     const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // This should be dynamically set based on logged-in user
     
     const [image, setImage] = useState<File | null>(null);
+    const [imageUrl, setImageUrl] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        let imageUrl = '';
+        if (image) {
+            const formData = new FormData();
+            formData.append('image', image);
+            imageUrl = await uploadImage(formData);
+        }
+
         const newBook = {
             userId: userId,
-            book_id: 1,// Set appropriate book_id
+            book_id: 1, // Set appropriate book_id
             category_id: 1, // Set appropriate category_id
             book_title: title,
             book_author: author,
@@ -25,7 +33,7 @@ const BookForm: React.FC = () => {
             book_location: location,
             created_at: '2024-08-05 10:16:56',
             updated_at: '2024-08-05 10:16:56',
-            book_image: 'public/books_images/Baldor.jpg',
+            book_image: imageUrl, // Usar la ruta de la imagen
         };
       
         try {
@@ -37,10 +45,12 @@ const BookForm: React.FC = () => {
           setDescription('');
           setCondition('');
           setLocation('');
+          setImage(null);
         } catch (error) {
           alert('Error al agregar libro');
         }
-      };
+    };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
@@ -103,11 +113,9 @@ const BookForm: React.FC = () => {
                     onChange={handleImageChange}
                 />
             </div>
-
             <button type="submit">Post Book</button>
         </form>
     );
 };
-
 
 export default BookForm;
