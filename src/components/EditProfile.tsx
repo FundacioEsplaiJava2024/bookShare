@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserProfile from './User/UserProfile';
-import BookPost from './Book/BookPost';
+import BookProfile from './Book/BookProfile';
 import '../EditProfile.css';
 
 interface User {
@@ -83,7 +83,7 @@ const EditProfile: React.FC = () => {
         <h2>Libros del Usuario</h2>
         <div className="books-list">
           {Array.isArray(books) && books.map((book) => (
-            <BookPost
+            <BookProfile
               key={book.book_id}  // Clave única para cada libro
               user_id={book.userId}
               book_id={book.book_id}   // Pasando el ID como una prop separada
