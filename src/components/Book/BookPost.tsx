@@ -36,8 +36,7 @@ const BookPost: React.FC<BookPostProps> = (book) => {
 
   const handleUpdate = async () => {
     try {
-      // Implement the update logic here
-      console.log('hola', bookData)
+      // Lógica de actualización
       await fetch(`http://127.0.0.1:8080/bookShare/books/update/${book.book_id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -46,6 +45,18 @@ const BookPost: React.FC<BookPostProps> = (book) => {
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating book:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await fetch(`http://127.0.0.1:8080/bookShare/books/delete/${book.book_id}`, {
+        method: 'DELETE',
+      });
+      alert('El libro ha sido eliminado correctamente.');
+      // Aquí puedes manejar la eliminación en la UI, por ejemplo redirigiendo al usuario o actualizando la lista de libros.
+    } catch (error) {
+      console.error('Error deleting book:', error);
     }
   };
 
@@ -102,6 +113,7 @@ const BookPost: React.FC<BookPostProps> = (book) => {
           <p>{book.location}</p>
           <img src={book.book_image} alt={book.title} />
           <button onClick={handleEditClick}>Edit</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       )}
     </div>
