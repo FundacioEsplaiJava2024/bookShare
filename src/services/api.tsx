@@ -2,19 +2,21 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8080/bookShare';
 
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-    description: string;
-    condition: string;
-    location: string;
-    createdAt: string;
-    updatedAt: string;
+export interface Book {
+    book_id: number;
+    book_title: string;
+    book_author: string;
+    book_description: string;
+    book_condition: string;
+    book_location: string;
+    created_at: string;
+    updated_at: string;
     userId: number;
+    category_id: number;
+    book_image: string;
   }
   
-  interface User {
+  export interface User {
     user_id: number;
     name: string;
     email: string;
