@@ -1,5 +1,5 @@
 /* paleta de colores:
-verde oscuro: 165b2f
+verde oscuro: 2E8B57
 verde claro: 3bce73
 verde muy claro: 9ee6be
 */
@@ -7,7 +7,7 @@ verde muy claro: 9ee6be
     box-sizing: border-box;
 }
 h1, h2, h3, h4, p, a, li{
-    color:#165b2f ;
+    color: black ;
     text-decoration: none;
 }
 body{
@@ -18,7 +18,7 @@ body{
 header{
     display: flex;
     justify-content: space-between;
-    background-color: #3bce73;
+    background-color: #2E8B57;
     padding: 10px 5px;
     position: relative;
 }
@@ -33,11 +33,20 @@ header nav a{
     margin: auto 0;
     padding: 10px;
     margin-left: 15px;
-    color: #165b2f;
+    color: #9ee6be;
     font-size: 18px;
     text-decoration: none;
 }
 header nav a:hover{
+    background-color: #3bce73;
+    border-radius: 5px;
+    transition: all 1s ease;
+}
+nav div.dropdown-menu a{
+    margin: 0;
+    color: #2E8B57;
+}
+nav .dropdown-menu a:hover{
     background-color: #9ee6be;
     border-radius: 5px;
     transition: all 1s ease;
@@ -193,7 +202,7 @@ header nav a:hover{
 footer{
     display: flex;
     flex-direction: column;
-    background-color: #3bce73;
+    background-color: #2E8B57;;
     padding: 10px 5px;
 }
 
