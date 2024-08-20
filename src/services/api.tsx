@@ -36,7 +36,7 @@ export interface Book {
     country: string;
     postal_code: string;
     created_at: string;
-    update_at: string;
+    updated_at: string;
   }
   export async function fetchBooks() {
     try {
