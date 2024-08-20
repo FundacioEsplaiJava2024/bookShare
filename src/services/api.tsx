@@ -21,6 +21,22 @@ export interface Book {
     name: string;
     email: string;
     password: string;
+    created_at: string;
+    update_at: string;
+    user_image: string;
+  }
+  export interface ContactUsers{
+    contact_id: number;
+    user_id: number;
+    phone_number: string;
+    email: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    postal_code: string;
+    created_at: string;
+    update_at: string;
   }
   export async function fetchBooks() {
     try {
