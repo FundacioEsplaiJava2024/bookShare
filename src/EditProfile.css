@@ -1,4 +1,6 @@
 .edit-profile-container {
+  width: 80%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -17,7 +19,7 @@
 
 .profile-description {
   background-color: rgb(255 255 255 / 0.75);
-  max-height: 75vh;
+  max-height: 50vh;
   max-width: 25%;
 }
 
@@ -41,6 +43,7 @@
 
 .user-books {
   background-color: rgb(255 255 255 / 0.75);
+  min-height: 75vh;
 }
 .book-listItem{
   margin-bottom: 2rem;

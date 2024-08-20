@@ -17,7 +17,7 @@ interface BookPostProps {
 const BookPost: React.FC<BookPostProps> = ({ author, book_condition, book_description, location, title, category_id, createdAt, user_id, book_image }) => {
   return (
     <div className="book-post">
-      <img src={`../../${book_image}`} alt="prueba" />
+      <img src={`${book_image}`} alt="prueba" />
       <div className="details">
         <h2>{title}</h2>
         <p>Por: {author}</p>

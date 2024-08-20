@@ -148,10 +148,11 @@ nav .dropdown-menu a:hover{
 
 /* CSS DEL MAIN*/
 .home-page{
-    width: 80%;
-    margin: 0 auto;
+    width: 75%;
+    margin: 1rem auto;
     min-height: 100vh;
-    background-color: rgba(218, 226, 209, 0.95);
+    border-radius: 10px;
+    background-color: rgb(255 255 255 / 0.75);
     padding-bottom: 50px;
 }
 .home-page h1, h2, h3, h4, h5, p{
@@ -242,11 +243,12 @@ footer .footer-bottom{
 /* CSS PARA EL FORMULARIO DE AGREGAR PUBLICACION */
 
 .formContainer{
-    width: 80%;
-    margin: 0 auto;
+    width: 40%;
+    margin: 1rem auto;
     padding: 20px;
     background-color: rgba(218, 226, 209, 0.95);
     min-height: 73.75vh;
+    border-radius: 10px;
 }
 .formContainer h3{
     text-align: center;
@@ -296,4 +298,57 @@ button.bookPost {
 button:hover {
     background-color: #45a049;
 }
+
+/* CSS PARA EL APARTADOS DE ABOUTUS.TSX */
+
+.about-us-container{
+    width: 80%;
+    margin: 1rem auto;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(218, 226, 209, 0.95);
+    min-height: 73.75vh;
+}
+.about-us-container section{
+    width: 80%;
+    margin: 0  auto;
+}
+.about-us-container h2{
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
   
+  .about-us-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 10px;
+    color: #34495e;
+  }
+  
+  .about-us-content ul {
+    list-style: disc;
+    margin: 10px 0 2rem 0;
+    padding-left: 20px;
+  }
+  
+  .about-us-content ul li {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin-bottom: 10px;
+  }
+  .about-us-content .border{
+    border-bottom: 2px solid #34495e;
+  }
+  .about-us-content p, li{
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+  }
+.AboutUsImg{
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
