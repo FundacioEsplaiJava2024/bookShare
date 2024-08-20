@@ -49,7 +49,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
                 await fetch(`http://127.0.0.1:8080/bookShare/users/update/${user_id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_image: newImageUrl, name: userData.name }),
+                    body: JSON.stringify({ imageUrl: newImageUrl, name: userData.name }),
                 });
                 console.log("Imagen actualizada:", newImageUrl);
                 alert("Foto de perfil actualizada correctamente.");

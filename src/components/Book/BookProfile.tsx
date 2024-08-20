@@ -54,7 +54,7 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
     }
   };
 
-  const handleUpdate = async () => {
+ const handleUpdate = async () => {
     try {
       // Imprimir los datos que se enviarán al servidor
       console.log('Datos enviados al servidor:', {
