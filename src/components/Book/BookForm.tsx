@@ -1,6 +1,6 @@
+// src/components/BookForm.tsx
 import React, { useState } from 'react';
-import { createBook } from '../../services/api';
-
+import { createBook, uploadImage } from '../../services/api';
 
 const BookForm: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -8,39 +8,47 @@ const BookForm: React.FC = () => {
     const [description, setDescription] = useState('');
     const [condition, setCondition] = useState('');
     const [location, setLocation] = useState('');
-    const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // This should be dynamically set based on logged-in user
-    
+    const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // Asume que userId está en sessionStorage
     const [image, setImage] = useState<File | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        let imageUrl = '';
+        if (image) {
+            const formData = new FormData();
+            formData.append('image', image);
+            imageUrl = await uploadImage(formData);
+        }
+
         const newBook = {
             userId: userId,
-            book_id: 1,// Set appropriate book_id
-            category_id: 1, // Set appropriate category_id
+            book_id: 1, // Ajusta según sea necesario
+            category_id: 1, // Ajusta según sea necesario
             book_title: title,
             book_author: author,
             book_description: description,
             book_condition: condition,
             book_location: location,
-            created_at: '2024-08-05 10:16:56',
-            updated_at: '2024-08-05 10:16:56',
-            book_image: 'public/books_images/Baldor.jpg',
+            created_at: new Date().toISOString(), // Fecha actual en formato ISO
+            updated_at: new Date().toISOString(), // Fecha actual en formato ISO
+            book_image: imageUrl, // Usar la ruta de la imagen
         };
-      
+
         try {
-          await createBook(newBook);
-          alert('Libro agregado correctamente!');
-          // Limpiar el formulario
-          setTitle('');
-          setAuthor('');
-          setDescription('');
-          setCondition('');
-          setLocation('');
+            await createBook(newBook);
+            alert('Libro agregado correctamente!');
+            setTitle('');
+            setAuthor('');
+            setDescription('');
+            setCondition('');
+            setLocation('');
+            setImage(null);
         } catch (error) {
-          alert('Error al agregar libro');
+            alert('Error al agregar libro');
         }
-      };
+    };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
@@ -103,11 +111,9 @@ const BookForm: React.FC = () => {
                     onChange={handleImageChange}
                 />
             </div>
-
             <button type="submit">Post Book</button>
         </form>
     );
 };
-
 
 export default BookForm;
