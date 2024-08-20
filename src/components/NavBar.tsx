@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
         <SearchBar setSearchResults={setSearchResults} />
       </div>
       <nav>
-        <Link to="/somos">Quienes somos?</Link>
+        <Link to="/quienes-somos">Quienes somos?</Link>
         {/* Dropdown para el perfil */}
         <div className="dropdown">
           <a onClick={toggleDropdown} className="dropdown-button">

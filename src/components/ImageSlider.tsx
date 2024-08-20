@@ -18,13 +18,13 @@ const ImageSlider: React.FC = () => {
     <div className="slider-container">
       <Slider {...settings}>
         <div>
-          <img src="../../public/img/1.png" alt="Slide 1" />
+          <img src="/img/1.png" alt="Slide 1" />
         </div>
         <div>
-          <img src="../../public/img/2.png" alt="Slide 2" />
+          <img src="/img/2.png" alt="Slide 2" />
         </div>
         <div>
-          <img src="../../public/img/3.png" alt="Slide 3" />
+          <img src="/img/3.png" alt="Slide 3" />
         </div>
         {/* Agrega más imágenes según sea necesario */}
       </Slider>
