@@ -11,7 +11,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ name, created_at, update_at, 
     return (
         <div className="user-header">
           <img
-            src={`../../${user_image}`}
+            src={`../../../public/users_images/${user_image}`}
             alt={`${name}'s profile`}
             className="profile-picture"
           />

@@ -1,5 +1,5 @@
 /* paleta de colores:
-verde oscuro: 165b2f
+verde oscuro: 2E8B57
 verde claro: 3bce73
 verde muy claro: 9ee6be
 */
@@ -7,7 +7,7 @@ verde muy claro: 9ee6be
     box-sizing: border-box;
 }
 h1, h2, h3, h4, p, a, li{
-    color:#165b2f ;
+    color: black ;
     text-decoration: none;
 }
 body{
@@ -18,7 +18,7 @@ body{
 header{
     display: flex;
     justify-content: space-between;
-    background-color: #3bce73;
+    background-color: #2E8B57;
     padding: 10px 5px;
     position: relative;
 }
@@ -33,15 +33,55 @@ header nav a{
     margin: auto 0;
     padding: 10px;
     margin-left: 15px;
-    color: #165b2f;
+    color: #9ee6be;
     font-size: 18px;
     text-decoration: none;
 }
 header nav a:hover{
-    background-color: #9ee6be;
-    border-radius: 20px;
+    background-color: #3bce73;
+    border-radius: 5px;
     transition: all 1s ease;
 }
+nav div.dropdown-menu a{
+    margin: 0;
+    color: #2E8B57;
+}
+nav .dropdown-menu a:hover{
+    background-color: #9ee6be;
+    border-radius: 5px;
+    transition: all 1s ease;
+}
+
+/* CSS DEL DROPDOWN */
+.dropdown {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -70px;
+    background-color: white;
+    padding: 10px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+  }
+  .dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 125px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+  }
+
+
 /*CSS DE LA SEARCHBAR*/
 .search-bar-container{
     width: 60%;
@@ -162,7 +202,7 @@ header nav a:hover{
 footer{
     display: flex;
     flex-direction: column;
-    background-color: #3bce73;
+    background-color: #2E8B57;;
     padding: 10px 5px;
 }
 
@@ -195,3 +235,65 @@ footer .footer-section ul li a img{
 footer .footer-bottom{
     text-align: center;
 }
+  
+
+/* CSS PARA APARTADOS IMPORTANTES */
+
+/* CSS PARA EL FORMULARIO DE AGREGAR PUBLICACION */
+
+.formContainer{
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(218, 226, 209, 0.95);
+    min-height: 73.75vh;
+}
+.formContainer h3{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Centra el formulario */
+}
+  
+.form-group {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    margin-bottom: 15px;
+}
+  
+label {
+    width: 120px; /* Ancho fijo para todos los labels */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+}
+  
+input[type="text"],
+input[type="file"] {
+    flex: 1; /* Hace que el input ocupe todo el espacio restante */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+  
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Mueve el botón hacia la derecha */
+}
+  
+button.bookPost {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+  
+button:hover {
+    background-color: #45a049;
+}
+  

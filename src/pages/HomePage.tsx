@@ -56,9 +56,6 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <ImageSlider />
       <h1>Libros disponibles para solicitar:</h1>
-      <div className="text-center"> 
-                    <button type="button" className="btn btn-primary mt-3" onClick={handleLogout}>Logout</button> 
-                </div> 
                
                 
       <div className="container">

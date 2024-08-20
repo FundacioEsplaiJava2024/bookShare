@@ -57,62 +57,65 @@ const BookForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Title:</label>
-                <input
+        <div className="formContainer">
+            <h3>Haz una nueva publicacion para una donacion:</h3>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label>Titulo:</label>
+                    <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                />
-            </div>
-            <div>
-                <label>Author:</label>
-                <input
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Autor:</label>
+                    <input
                     type="text"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                     required
-                />
-            </div>
-            <div>
-                <label>Description:</label>
-                <input
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Descipcion:</label>
+                    <input
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
-                />
-            </div>
-            <div>
-                <label>Condition:</label>
-                <input
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Condicion:</label>
+                    <input
                     type="text"
                     value={condition}
                     onChange={(e) => setCondition(e.target.value)}
                     required
-                />
-            </div>
-            <div>
-                <label>Location:</label>
-                <input
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Ubicacion:</label>
+                    <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     required
-                />
-            </div>
-            <div>
-                <label>Image:</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                />
-            </div>
-            <button type="submit">Post Book</button>
-        </form>
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Imagen:</label>
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                </div>
+
+                <div className="button-container">
+                    <button type="submit" className='bookPost'>Publicar Libro</button>
+                </div>
+            </form>
+
+        </div>    
     );
 };
 
