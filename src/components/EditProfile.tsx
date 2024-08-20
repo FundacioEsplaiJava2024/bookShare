@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import UserProfile from './User/UserProfile';
 import BookProfile from './Book/BookProfile';
+import ContactProfile from './Contacts/ContactProfile';
 import '../EditProfile.css';
 import { Book, User, ContactUsers } from '../services/api';
 
 const EditProfile: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
-  const [contactUser, setContactUser] = useState<ContactUsers | null>(null);
+  const [contacts, setContactUser] = useState<ContactUsers[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const EditProfile: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         setContactUser(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching contact info:', error);
@@ -70,15 +72,22 @@ const EditProfile: React.FC = () => {
         {/* Nueva sección para mostrar los datos de contacto del usuario */}
         <div className="contact-info">
           <h3>Detalles de Contacto</h3>
-          {contactUser ? (
-            <div>
-              <p><strong>Teléfono:</strong> {contactUser.phone_number}</p>
-              <p><strong>Email:</strong> {contactUser.email}</p>
-              <p><strong>Dirección:</strong> {contactUser.address}, {contactUser.city}, {contactUser.state}, {contactUser.country} - {contactUser.postal_code}</p>
-            </div>
-          ) : (
-            <p>No se han encontrado detalles de contacto.</p>
-          )}
+          {Array.isArray(contacts) && contacts.map((contact) => (
+            <ContactProfile
+              key={contact.contact_id}
+              contact_id={contact.contact_id}
+              user_id={contact.user_id}
+              phone_number={contact.phone_number}
+              email={contact.email}
+              address={contact.address}
+              city={contact.city}
+              state={contact.state}
+              country={contact.country}
+              postal_code={contact.postal_code}
+              created_at={contact.created_at}
+              update_at={contact.updated_at}
+            />
+          ))}
         </div>
       </div>
 
