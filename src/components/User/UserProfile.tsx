@@ -4,11 +4,11 @@ interface UserProfileProps {
     user_id: number;
     name: string;
     created_at: string;
-    updated_at: string;
+    update_at: string;
     user_image: string;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, updated_at, user_image }) => {
+const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, update_at, user_image }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newImage, setNewImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
