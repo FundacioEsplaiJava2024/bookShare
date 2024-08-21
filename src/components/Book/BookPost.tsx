@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ContactUsers, Book } from '../../services/api';  // Importamos la interfaz de ContactUsers
+import ContactProfile from '../Contacts/ContactProfile';
 
 interface BookPostProps {
   user_id: number;
@@ -15,16 +16,16 @@ interface BookPostProps {
   book_image: string;
 }
 
-const BookPost: React.FC<BookPostProps> = ({ 
-  author, 
-  book_condition, 
-  book_description, 
-  location, 
-  title, 
-  category_id, 
-  createdAt, 
-  user_id, 
-  book_image 
+const BookPost: React.FC<BookPostProps> = ({
+  author,
+  book_condition,
+  book_description,
+  location,
+  title,
+  category_id,
+  createdAt,
+  user_id,
+  book_image
 }) => {
   const [contactInfo, setContactInfo] = useState<ContactUsers | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -33,7 +34,7 @@ const BookPost: React.FC<BookPostProps> = ({
   // Fetch contact info when the user clicks the button
   const handleRequestBook = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8080/bookShare/contactS/user/${user_id}`);
+      const response = await fetch(`http://127.0.0.1:8080/bookShare/contacts/user/${user_id}`);
       const data: ContactUsers = await response.json();  // Usamos la interfaz ContactUsers para definir el tipo de respuesta
       setContactInfo(data);
       setShowModal(true); // Mostrar modal una vez que tengamos la info de contacto
@@ -41,9 +42,22 @@ const BookPost: React.FC<BookPostProps> = ({
       console.error("Error fetching contact info:", error);
     }
   };
+  console.log(contactInfo?.user_id)
 
   // Fetch user name based on user_id when component mounts
   useEffect(() => {
+    const userId = sessionStorage.getItem("userId");
+
+    fetch(`http://127.0.0.1:8080/bookShare/contacts/user/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setContactInfo(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching contact info:', error);
+      });
+
     const fetchUserName = async () => {
       try {
         const response = await fetch(`http://127.0.0.1:8080/bookShare/users/${user_id}`);
@@ -81,9 +95,12 @@ const BookPost: React.FC<BookPostProps> = ({
         <div className="modal">
           <div className="modal-content">
             <h2>Información de Contacto</h2>
-            <p><strong>Teléfono:</strong> {contactInfo.phone_number}</p>
-            <p><strong>Email:</strong> {contactInfo.email}</p>
-            <p><strong>Dirección:</strong> {contactInfo.address}, {contactInfo.city}, {contactInfo.state}, {contactInfo.country}, {contactInfo.postal_code}</p>
+            {Array.isArray(contactInfo) && contactInfo.map((contact) => (
+              <ContactProfile
+                key={contact.contact_id}
+                contact={contact}
+              />
+            ))}
             <button className='bookPost' onClick={() => setShowModal(false)}>Cerrar</button>
           </div>
         </div>
