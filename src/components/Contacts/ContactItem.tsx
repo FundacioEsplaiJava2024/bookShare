@@ -1,8 +1,9 @@
 import React from 'react';
-import { ContactUsers } from '../../services/api';  // Importa la interfaz desde api.tsx
+import { ContactUsers } from '../../services/api';
+
 
 interface ContactItemProps {
-    contact: ContactUsers;  // Usa la interfaz importada
+    contact: ContactUsers;
 }
 
 const ContactItem: React.FC<ContactItemProps> = ({ contact }) => {
@@ -18,7 +19,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ contact }) => {
             <p>{contact.country}</p>
             <p>{contact.postal_code}</p>
             <p>{contact.created_at}</p>
-            <p>{contact.updated_at}</p>  {/* Cambié `update_at` a `updated_at` */}
+            <p>{contact.updated_at}</p>
         </div>
     );
 };
