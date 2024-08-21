@@ -13,7 +13,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
       <div className="profile-info">
         <p><strong>Teléfono:</strong> {phone_number}</p>
         <p><strong>Email:</strong> {email}</p>
-        <p><strong>Dirección:</strong> {address}, {city}, {state}, {country} - {postal_code}</p>
+        <p><strong>Dirección:</strong> {city}, {state}, {country} - {postal_code}</p>
       </div>
     </div>
   );
