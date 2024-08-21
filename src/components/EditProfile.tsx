@@ -64,8 +64,8 @@ const EditProfile: React.FC = () => {
               name={user.name}
               created_at={user.created_at}
               update_at={user.update_at}
-              user_image={user.user_image}
-            />
+              user_image={user.user_image} 
+              user_id={user.user_id}/>
           ))}
         </div>
 
@@ -75,39 +75,18 @@ const EditProfile: React.FC = () => {
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
               key={contact.contact_id}
-              contact_id={contact.contact_id}
-              user_id={contact.user_id}
-              phone_number={contact.phone_number}
-              email={contact.email}
-              address={contact.address}
-              city={contact.city}
-              state={contact.state}
-              country={contact.country}
-              postal_code={contact.postal_code}
-              created_at={contact.created_at}
-              update_at={contact.updated_at}
+             contact={contact}
             />
           ))}
         </div>
       </div>
-
       <div className="column user-books">
         <h2>Libros del Usuario</h2>
         <div className="books-list">
           {Array.isArray(books) && books.map((book) => (
             <BookProfile
               key={book.book_id}
-              user_id={book.userId}
-              book_id={book.book_id}
-              category_id={book.category_id}
-              title={book.book_title}
-              author={book.book_author}
-              description={book.book_description}
-              book_condition={book.book_condition}
-              location={book.book_location}
-              createdAt={book.created_at}
-              updatedAt={book.updated_at}
-              book_image={book.book_image}
+            book={book}  // Pasas todo el objeto `book` que esta en bookProfile
             />
           ))}
         </div>

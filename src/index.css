@@ -198,16 +198,6 @@ nav .dropdown-menu a:hover{
     width: 15rem;
     height: 24rem;
 }
-.book-post .details{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 80%;
-}
-.details .buttonContact{
-    display: flex;
-    justify-content: end;
-}
 
 /*CSS DEL FOOTER*/
 footer{
