@@ -1,19 +1,7 @@
 import React from 'react';
 import BookItem from './BookItem';
+import { Book } from '../../services/api';
 
-interface Book {
-  book_id: number;
-  category_name: string;
-  title: string;
-  author: string;
-  description: string;
-  condition: string;
-  location: string;
-  createdAt: string;
-  updatedAt: string;
-  userName: string;
-  book_image: string;
-}
 
 interface BookListProps {
   books: Book[];

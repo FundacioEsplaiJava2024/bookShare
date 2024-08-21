@@ -1,26 +1,19 @@
 import React from "react";
+import { ContactUsers } from '../../services/api';
 
 interface ContactProfileProps {
-  contact_id: number;
-  user_id: number;
-  phone_number: string;
-  email: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  postal_code: string;
-  created_at: string;
-  update_at: string;
+  contact: ContactUsers;  // El componente ahora espera un objeto `contact` de tipo `ContactUsers`
 }
 
-const ContactProfile: React.FC<ContactProfileProps> = ({ phone_number, email, address, city, state, country, postal_code }) => {
+const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
+  const { phone_number, email, address, city, state, country, postal_code } = contact;
+
   return (
     <div className="user-header">
       <div className="profile-info">
         <p><strong>Teléfono:</strong> {phone_number}</p>
         <p><strong>Email:</strong> {email}</p>
-        <p><strong>Dirección:</strong> {address}, {city}, {state}, {country} - {postal_code}</p>
+        <p><strong>Dirección:</strong> {city}, {state}, {country} - {postal_code}</p>
       </div>
     </div>
   );

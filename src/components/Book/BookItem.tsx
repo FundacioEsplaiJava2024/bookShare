@@ -1,18 +1,6 @@
 import React from 'react';
+import { Book } from '../../services/api';
 
-interface Book {
-  book_id: number;
-  category_name: string;
-  title: string;
-  author: string;
-  description: string;
-  condition: string;
-  location: string;
-  createdAt: string;
-  updatedAt: string;
-  userName: string;
-  book_image: string;
-}
 
 interface BookItemProps {
   book: Book;
@@ -22,15 +10,15 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
   return (
     <div>
       <p>{book.book_id}</p>
-      <h2>{book.title}</h2>
-      <p>{book.category_name}</p>
-      <p>{book.author}</p>
-      <p>{book.description}</p>
-      <p>{book.condition}</p>
-      <p>{book.location}</p>
-      <p>{book.createdAt}</p>
-      <p>{book.updatedAt}</p>
-      <p>{book.userName}</p>
+      <h2>{book.book_title}</h2>
+      <p>{book.category_id}</p>
+      <p>{book.book_author}</p>
+      <p>{book.book_description}</p>
+      <p>{book.book_condition}</p>
+      <p>{book.book_location}</p>
+      <p>{book.created_at}</p>
+      <p>{book.updated_at}</p>
+      <p>{book.userId}</p>
       <p>{book.book_image}</p>
     </div>
   );
