@@ -10,10 +10,6 @@ interface UserProfileProps {
 
 const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, updated_at, user_image }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [userData, setUserData] = useState({
-        name: name,
-        user_image: user_image,
-    });
     const [newImage, setNewImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -22,13 +18,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, files } = e.target;
+        const { name, files } = e.target;
         if (name === 'user_image' && files && files.length > 0) {
             setNewImage(files[0]);
             // Crear una URL de vista previa para la nueva imagen
             setImagePreview(URL.createObjectURL(files[0]));
-        } else {
-            setUserData({ ...userData, [name]: value });
         }
     };
 
@@ -49,7 +43,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
                 await fetch(`http://127.0.0.1:8080/bookShare/users/update/${user_id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ imageUrl: newImageUrl, name: userData.name }),
+                    body: JSON.stringify({ imageUrl: newImageUrl, name }), // Mantén el nombre sin cambios
                 });
                 console.log("Imagen actualizada:", newImageUrl);
                 alert("Foto de perfil actualizada correctamente.");
@@ -73,12 +67,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
             {isEditing ? (
                 <div>
                     <h3>Editar Perfil</h3>
-                    <input
-                        type="text"
-                        name="name"
-                        value={userData.name}
-                        onChange={handleInputChange}
-                    />
+                    {/* Eliminar el campo de entrada para el nombre */}
                     <input
                         type="file"
                         name="user_image"
