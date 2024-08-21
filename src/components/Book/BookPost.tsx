@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ContactUsers } from '../../services/api';  // Importamos la interfaz de ContactUsers
+import React, { useState, useEffect } from 'react';
+import { ContactUsers, Book } from '../../services/api';  // Importamos la interfaz de ContactUsers
 
 interface BookPostProps {
   user_id: number;
@@ -28,6 +28,7 @@ const BookPost: React.FC<BookPostProps> = ({
 }) => {
   const [contactInfo, setContactInfo] = useState<ContactUsers | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [userName, setUserName] = useState<string>(''); // Estado para el nombre de usuario
 
   // Fetch contact info when the user clicks the button
   const handleRequestBook = async () => {
@@ -41,6 +42,21 @@ const BookPost: React.FC<BookPostProps> = ({
     }
   };
 
+  // Fetch user name based on user_id when component mounts
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8080/bookShare/users/${user_id}`);
+        const data = await response.json();
+        setUserName(data.name); // Asume que la respuesta tiene un campo `name`
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+
+    fetchUserName();
+  }, [user_id]);
+
   return (
     <div className="book-post">
       <img src={`${book_image}`} alt="Imagen del libro" />
@@ -53,7 +69,7 @@ const BookPost: React.FC<BookPostProps> = ({
           <p><strong>Condición:</strong> {book_condition}</p>
           <p><strong>Ubicación:</strong> {location}</p>
           <p><em>Publicado el: {new Date(createdAt).toLocaleDateString()}</em></p>
-          <p>Publicado por el usuario: {user_id}</p>
+          <p>Publicado por: {userName || 'Desconocido'}</p> {/* Mostrar el nombre del usuario */}
         </div>
         <div className="buttonContact">
           <button className='bookPost' onClick={handleRequestBook}>Solicitar Libro</button>
