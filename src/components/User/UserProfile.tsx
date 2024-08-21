@@ -86,7 +86,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
                     />
                     <p><strong>Usuario:</strong> {name}</p>
                     <p>Usuario desde el: {created_at}</p>
-                    <p>Última actualización: {updated_at}</p>
+                   
                 </div>
             )}
             {!isEditing && (
