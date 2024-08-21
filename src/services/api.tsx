@@ -2,23 +2,41 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8080/bookShare';
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  condition: string;
-  location: string;
-  createdAt: string;
-  updatedAt: string;
+export interface Book {
+  book_id: number;
+  book_title: string;
+  book_author: string;
+  book_description: string;
+  book_condition: string;
+  book_location: string;
+  created_at: string;
+  updated_at: string;
   userId: number;
+  category_id: number;
+  book_image: string;
 }
 
-interface User {
+export interface User {
   user_id: number;
   name: string;
   email: string;
   password: string;
+  created_at: string;
+  update_at: string;
+  user_image: string;
+}
+export interface ContactUsers {
+  contact_id: number;
+  user_id: number;
+  phone_number: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  postal_code: string;
+  created_at: string;
+  updated_at: string;
 }
 export async function fetchBooks() {
   try {
@@ -94,6 +112,7 @@ export async function createUser(newUser: {
     console.error('Error al agregar usuario', error);
   }
 }
+
 export async function loginUser(credentials: {
   email: string,
   password: string,
@@ -106,7 +125,6 @@ export async function loginUser(credentials: {
     console.error('Error al iniciar sesión', error);
   }
 }
-
 
 export const updateBook = async (id: number, book: Partial<Book>): Promise<Book> => {
   const response = await fetch(`${API_URL}/books/${id}`, {
@@ -147,8 +165,6 @@ export const fetchUserById = async (id: number): Promise<User> => {
   return await response.json();
 };
 
-
-
 export const updateUser = async (id: number, user: Partial<User>): Promise<User> => {
   const response = await fetch(`${API_URL}/users/${id}`, {
     method: 'PUT',
@@ -163,23 +179,22 @@ export const updateUser = async (id: number, user: Partial<User>): Promise<User>
   return await response.json();
 };
 
-
 export const uploadImage = async (formData: FormData): Promise<string> => {
   try {
-      const response = await fetch(`${API_URL}/books/upload`, {
-          method: 'POST',
-          body: formData,
-      });
+    const response = await fetch(`${API_URL}/books/upload`, {
+      method: 'POST',
+      body: formData,
+    });
 
-      if (!response.ok) {
-          const errorText = await response.text(); // Obtener texto del error
-          throw new Error(`Error uploading image: ${errorText}`);
-      }
+    if (!response.ok) {
+      const errorText = await response.text(); // Obtener texto del error
+      throw new Error(`Error uploading image: ${errorText}`);
+    }
 
-      return await response.text(); // La ruta pública de la imagen
+    return await response.text(); // La ruta pública de la imagen
   } catch (error) {
-      console.error('Upload error:', error);
-      throw error;
+    console.error('Upload error:', error);
+    throw error;
   }
 };
 export const deleteUser = async (id: number): Promise<void> => {
