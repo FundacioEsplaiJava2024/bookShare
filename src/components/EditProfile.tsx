@@ -75,17 +75,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
               key={contact.contact_id}
-              contact_id={contact.contact_id}
-              user_id={contact.user_id}
-              phone_number={contact.phone_number}
-              email={contact.email}
-              address={contact.address}
-              city={contact.city}
-              state={contact.state}
-              country={contact.country}
-              postal_code={contact.postal_code}
-              created_at={contact.created_at}
-              update_at={contact.updated_at}
+             contact={contact}
             />
           ))}
         </div>
