@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { fetchUsers, fetchBooks, Book, User } from "../services/api";
 
-
 interface SearchBarProps {
   setSearchResults: (results: (Book | User)[]) => void;
 }
@@ -9,7 +8,7 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
   const [input, setInput] = useState("");
   const [filter, setFilter] = useState("books");
-  const [results, setResults] = useState<(Book | User)[]>([]);
+  const [keywords, setKeywords] = useState<string[]>([]);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = async () => {
@@ -20,20 +19,27 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
 
     try {
       let response;
-      if (filter == "books") {
+      if (filter === "books") {
         response = await fetchBooks();
       } else {
         response = await fetchUsers();
       }
 
       console.log("response ", response);
-      // Filtrar resultados según la búsqueda
-      const filteredResults = response.filter((item: Book | User) =>
-        (filter == "books" ? (item as Book).book_title : (item as User).name)
-          .toLowerCase()
-          .includes(input.toLowerCase())
-      );
-      setResults(filteredResults);
+
+      // Convertir input en una lista de palabras clave
+      const keywords = input.toLowerCase().split(/\s+/);
+      setKeywords(keywords);
+
+      // Filtrar resultados según las palabras clave
+      const filteredResults = response.filter((item: Book | User) => {
+        const textToSearch = filter === "books"
+          ? (item as Book).book_title.toLowerCase()
+          : (item as User).name.toLowerCase();
+
+        return keywords.every(keyword => textToSearch.includes(keyword));
+      });
+
       setSearchResults(filteredResults); // Actualiza los resultados en el estado padre
     } catch (error) {
       console.error("Error during search: ", error);
@@ -47,8 +53,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
         inputWrapperRef.current &&
         !inputWrapperRef.current.contains(event.target as Node)
       ) {
-        setResults([]); // Ocultar resultados
         setInput(""); // Limpiar input
+        setKeywords([]); // Limpiar palabras clave
       }
     };
 
@@ -66,8 +72,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       >
-        <option value="Libros">Libros</option>
-        <option value="Usuarios">Usuarios</option>
+        <option value="books">Libros</option>
+        <option value="users">Usuarios</option>
       </select>
       <input
         type="text"
@@ -76,15 +82,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={handleSearch}>Buscar</button>
-      <div className="search-results">
-        {results.map((result, index) => (
-          <div className="result" key={index}>
-            {filter == "books"
-              ? (result as Book).book_title
-              : (result as User).name}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
