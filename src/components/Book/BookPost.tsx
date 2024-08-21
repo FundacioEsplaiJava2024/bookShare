@@ -28,11 +28,10 @@ const BookPost: React.FC<BookPostProps> = ({
 }) => {
   const [contactInfo, setContactInfo] = useState<ContactUsers | null>(null);
   const [showModal, setShowModal] = useState(false);
-
   // Fetch contact info when the user clicks the button
   const handleRequestBook = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8080/bookShare/contactS/user/${user_id}`);
+      const response = await fetch(`http://127.0.0.1:8080/bookShare/contacts/user/${user_id}`);
       const data: ContactUsers = await response.json();  // Usamos la interfaz ContactUsers para definir el tipo de respuesta
       setContactInfo(data);
       setShowModal(true); // Mostrar modal una vez que tengamos la info de contacto
@@ -40,6 +39,7 @@ const BookPost: React.FC<BookPostProps> = ({
       console.error("Error fetching contact info:", error);
     }
   };
+  console.log(contactInfo?.user_id)
 
   return (
     <div className="book-post">
