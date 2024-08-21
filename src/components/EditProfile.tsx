@@ -64,8 +64,8 @@ const EditProfile: React.FC = () => {
               name={user.name}
               created_at={user.created_at}
               update_at={user.update_at}
-              user_image={user.user_image}
-            />
+              user_image={user.user_image} 
+              user_id={user.user_id}/>
           ))}
         </div>
 
@@ -90,7 +90,6 @@ const EditProfile: React.FC = () => {
           ))}
         </div>
       </div>
-
       <div className="column user-books">
         <h2>Libros del Usuario</h2>
         <div className="books-list">
