@@ -198,6 +198,15 @@ nav .dropdown-menu a:hover{
     width: 15rem;
     height: 24rem;
 }
+.details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.buttonContact{
+    display: flex;
+    justify-content: end;
+}
 
 /*CSS DEL FOOTER*/
 footer{

@@ -74,8 +74,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
                         accept="image/*"
                         onChange={handleInputChange}
                     />
-                    <button onClick={handleUpdate}>Actualizar</button>
-                    <button onClick={() => setIsEditing(false)}>Cancelar</button>
+                    <button className="bookPost" onClick={handleUpdate}>Actualizar</button>
+                    <button className="bookPost" onClick={() => setIsEditing(false)}>Cancelar</button>
                 </div>
             ) : (
                 <div className="profile-info">
@@ -91,7 +91,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
             )}
             {!isEditing && (
                 <div className="upload-section">
-                    <button onClick={handleEditClick}>Editar</button>
+                    <button className="bookPost" onClick={handleEditClick}>Editar</button>
                 </div>
             )}
         </div>

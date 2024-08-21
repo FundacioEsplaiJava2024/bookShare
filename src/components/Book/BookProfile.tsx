@@ -140,8 +140,8 @@ const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
         </div>
       )}
       <div className="bookButtons">
-        <button onClick={handleEditClick}>Editar</button>
-        <button onClick={handleDelete}>Eliminar</button>
+        <button className='bookPost' onClick={handleEditClick}>Editar</button>
+        <button className='bookPost' onClick={handleDelete}>Eliminar</button>
       </div>
     </div>
   );
