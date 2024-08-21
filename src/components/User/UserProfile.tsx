@@ -80,7 +80,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
             ) : (
                 <div className="profile-info">
                     <img
-                        src={imagePreview || `../../${user_image}`} // Muestra la nueva imagen si hay vista previa, de lo contrario, muestra la imagen actual
+                        src={imagePreview || `${user_image}`} // Muestra la nueva imagen si hay vista previa, de lo contrario, muestra la imagen actual
                         alt={`${name}'s profile`}
                         className="profile-picture"
                     />
