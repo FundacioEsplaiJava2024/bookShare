@@ -96,17 +96,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(books) && books.map((book) => (
             <BookProfile
               key={book.book_id}
-              user_id={book.userId}
-              book_id={book.book_id}
-              category_id={book.category_id}
-              title={book.book_title}
-              author={book.book_author}
-              description={book.book_description}
-              book_condition={book.book_condition}
-              location={book.book_location}
-              createdAt={book.created_at}
-              updatedAt={book.updated_at}
-              book_image={book.book_image}
+            book={book}  // Pasas todo el objeto `book` que esta en bookProfile
             />
           ))}
         </div>

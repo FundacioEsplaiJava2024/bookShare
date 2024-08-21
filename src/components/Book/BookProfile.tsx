@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
+import { Book } from '../../services/api';
 
 interface BookProfileProps {
-  user_id: number;
-  book_id: number;
-  category_id: number;
-  title: string;
-  author: string;
-  description: string;
-  book_condition: string;
-  location: string;
-  createdAt: string;
-  updatedAt: string;
-  book_image: string;
+  book: Book;
+  
 }
 
-const BookProfile: React.FC<BookProfileProps> = (book) => {
+const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [bookData, setBookData] = useState({
-    book_title: book.title,
-    book_author: book.author,
-    book_description: book.description,
+    book_title: book.book_title,
+    book_author: book.book_author,
+    book_description: book.book_description,
     book_condition: book.book_condition,
-    book_location: book.location,
+    book_location: book.book_location,
     book_image: book.book_image,
   });
 
@@ -54,29 +46,20 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
     }
   };
 
- const handleUpdate = async () => {
+  const handleUpdate = async () => {
     try {
-      // Imprimir los datos que se enviarán al servidor
-      console.log('Datos enviados al servidor:', {
-        ...bookData,
-        created_at: book.createdAt,
-        updated_at: new Date().toISOString(), // Actualiza la fecha actual
-        userId: book.user_id,
-      });
-
       const response = await fetch(`http://127.0.0.1:8080/bookShare/books/update/${book.book_id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...bookData,
-          created_at: book.createdAt,
-          updated_at: new Date().toISOString(), // Cambia a la fecha actual
-          userId: book.user_id,
+          created_at: book.created_at,
+          updated_at: new Date().toISOString(),
+          userId: book.userId,
         }),
       });
 
       if (!response.ok) {
-        // Si la respuesta no es 2xx, lanza un error
         const errorText = await response.text();
         throw new Error(`Error: ${response.status} - ${errorText}`);
       }
@@ -85,7 +68,8 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
     } catch (error) {
       console.error('Error updating book:', error);
     }
-};
+  };
+
   const handleDelete = async () => {
     try {
       await fetch(`http://127.0.0.1:8080/bookShare/books/delete/${book.book_id}`, {
@@ -144,14 +128,14 @@ const BookProfile: React.FC<BookProfileProps> = (book) => {
       ) : (
         <div className='book-listDetails'>
           <div className="imgProfile">
-            <img src={book.book_image} alt={book.title} />
+            <img src={book.book_image} alt={book.book_title} />
           </div>
           <div className="detailsBookProfile">
-            <h2>{book.title}</h2>
-            <p>Autor: {book.author}</p>
-            <p>Descripcion: {book.description}</p>
+            <h2>{book.book_title}</h2>
+            <p>Autor: {book.book_author}</p>
+            <p>Descripcion: {book.book_description}</p>
             <p>Condicion: {book.book_condition}</p>
-            <p>Ubicacion: {book.location}</p>
+            <p>Ubicacion: {book.book_location}</p>
           </div>
         </div>
       )}
