@@ -98,3 +98,99 @@ p {
   font-size: 1em; /* Tamaño de fuente para los párrafos */
   line-height: 1.6; /* Altura de línea para mejor legibilidad */
 }
+/* CSS PARA CAMBIAR DE UBICACION EL LOGO DE LA CAMARA Y PONERLO ENCIMA DE LAS IMAGENES DE PERFIL */
+.profile-picture-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.camera-icon i {
+  font-size: 18px;
+}
+
+/* Estilo adicional para el botón de actualizar imagen */
+.upload-section {
+  margin-top: 10px;
+}
+
+.bookPost {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bookPost:hover {
+  background-color: #218838;
+}
+.bookPostItem{
+  border-bottom: 1px solid #165b2f;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+}
+.bookPostItem:last-child{
+  border-bottom: none;
+}
+.editButtons{
+  display: flex;
+  justify-content: space-around;
+}
+/* CSS PARA EL FORMULARIO DE EDITAR PUBLICACION DE UN LIBRO */
+
+
+.image-upload {
+  position: relative;
+  justify-content: center;
+}
+
+.image-preview-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px; 
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  padding: 5px;
+}
+.editButtons{
+  display: flex;
+  justify-content: space-around;
+}
+
+textarea {
+  box-sizing: border-box;
+  resize: vertical;
+  height: 6rem;
+}
