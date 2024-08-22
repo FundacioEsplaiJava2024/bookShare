@@ -141,6 +141,7 @@ const BookForm: React.FC = () => {
                             </div>
                         ) : (
                             <button
+                            className='bookPost'
                                 type="button"
                                 onClick={() => document.getElementById('image-input')?.click()}
                             >
