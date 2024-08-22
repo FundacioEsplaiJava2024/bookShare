@@ -38,6 +38,19 @@
     created_at: string;
     updated_at: string;
   }
+  export const updateContact = async (contact: ContactUsers): Promise<ContactUsers> => {
+    const response = await fetch(`http://127.0.0.1:8080/bookShare/contacts/update/${contact.contact_id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contact),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update contact with id ${contact.contact_id}`);
+    }
+    return await response.json();
+  };
   export async function fetchBooks() {
     try {
       const response = await axios.get(`${API_URL}/books/list`);
