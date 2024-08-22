@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import BookPost from '../components/Book/BookPost';
+import UserItem from '../components/User/UserItem';
 import { useLocation } from 'react-router-dom';
-import { Book } from '../services/api';
+import { Book, User } from '../services/api';
 import '../index.css';
 
 const SearchResultsPage: React.FC = () => {
@@ -16,27 +17,33 @@ const SearchResultsPage: React.FC = () => {
     }
   }, [location.state]);
 
+  const renderUserWithBooks = (user: User) => {
+    // Filtrar libros que pertenecen al usuario específico
+    const userBooks = searchResults.filter(
+      (item) => 'book_id' in item && (item as Book).userId === user.user_id
+    ) as Book[];
+
+    return (
+      <div key={user.user_id}>
+        <UserItem user={user} />
+        {userBooks.map((book) => (
+          <BookPost
+            user_id={book.userId} title={book.book_title} author={book.book_author} location={book.book_location} createdAt={book.created_at} updatedAt={book.updated_at} key={book.book_id}
+
+            {...book}          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="home-page">
       <h1>Resultados de Búsqueda:</h1>
       <div className="container">
         {searchResults.length > 0 ? (
-          searchResults.map((item) => (
-            <BookPost
-              key={item.book_id}
-              category_id={item.category_id}
-              title={item.book_title}
-              author={item.book_author}
-              book_description={item.book_description}
-              book_condition={item.book_condition}
-              location={item.book_location}
-              createdAt={item.created_at}
-              updatedAt={item.updated_at}
-              user_id={item.userId}
-              book_id={item.book_id}
-              book_image={item.book_image}
-            />
-          ))
+          searchResults
+            .filter((item) => 'user_id' in item) // Filtrar solo usuarios para renderizar
+            .map((item) => renderUserWithBooks(item as User))
         ) : (
           <p>No se encontraron resultados.</p>
         )}
