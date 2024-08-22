@@ -9,6 +9,7 @@ import BookForm from './components/Book/BookForm';
 import EditProfile from './components/EditProfile';
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
+import SearchResultsPage from './pages/SearchResultsPage'; // Importa la nueva página
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -25,8 +26,9 @@ const App: React.FC = () => {
         <Route path="/categories/:category" element={<CategoryPage />} />
         <Route path="/auth" element={<AuthForm />} />
         <Route path="/quienes-somos" element={<AboutUs />} />
-        <Route path="/BookForm" element={<BookForm />} /> {/* Nueva ruta para BookForm */}
-        <Route path="/edit-profile" element={<EditProfile />} /> {/* Ruta para EditProfile */}        
+        <Route path="/BookForm" element={<BookForm />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/search-results" element={<SearchResultsPage />} /> {/* Agrega la ruta para SearchResultsPage */}
       </Routes>
       {shouldShowHeaderAndFooter && <Footer />}
     </div>

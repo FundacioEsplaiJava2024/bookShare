@@ -3,7 +3,6 @@ import { Book } from '../../services/api';
 
 interface BookProfileProps {
   book: Book;
-  
 }
 
 const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
@@ -16,15 +15,24 @@ const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
     book_location: book.book_location,
     book_image: book.book_image,
   });
+  const [imagePreview, setImagePreview] = useState(book.book_image);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, files } = e.target;
     if (name === 'book_image' && files && files.length > 0) {
-      handleImageUpload(files[0]);
+      const file = files[0];
+      setImageFile(file);
+      const fileReader = new FileReader();
+      fileReader.onloadend = () => {
+        setImagePreview(fileReader.result as string);
+      };
+      fileReader.readAsDataURL(file);
+      handleImageUpload(file);
     } else {
       setBookData({ ...bookData, [name]: value });
     }
@@ -82,48 +90,73 @@ const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
   };
 
   return (
-    <div className='book-listItem'>
+    <div className='bookPostItem'>
       {isEditing ? (
-        <div>
-          <h3>Edit Book</h3>
-          <input
-            type="text"
-            name="book_title"
-            value={bookData.book_title}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="book_author"
-            value={bookData.book_author}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="book_description"
-            value={bookData.book_description}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="book_condition"
-            value={bookData.book_condition}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="book_location"
-            value={bookData.book_location}
-            onChange={handleInputChange}
-          />
-          <input
-            type="file"
-            name="book_image"
-            accept="image/*"
-            onChange={handleInputChange}
-          />
-          <button onClick={handleUpdate}>Update</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        <div className='formContainer'>
+          <h3>Editar Libro</h3>
+          <div className="form-group">
+            <input
+              type="text"
+              name="book_title"
+              value={bookData.book_title}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="book_author"
+              value={bookData.book_author}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-group">
+            <textarea
+              name="book_description"
+              value={bookData.book_description}
+              onChange={handleInputChange}
+              rows={4}
+              placeholder="Descripción del libro"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="book_condition"
+              value={bookData.book_condition}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="book_location"
+              value={bookData.book_location}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-group image-upload">
+            <div className="image-preview-container">
+              <img src={imagePreview} alt="Book cover" className="image-preview" />
+              <i
+                className="fas fa-pen edit-icon"
+                onClick={() => document.getElementById('file-input')?.click()}
+              ></i>
+            </div>
+            <input
+              type="file"
+              id="file-input"
+              name="book_image"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="editButtons">
+            <button className='bookPost' onClick={handleUpdate}>Actualizar</button>
+            <button className='bookPost' onClick={() => setIsEditing(false)}>Cancelar</button>
+          </div>
+         
         </div>
       ) : (
         <div className='book-listDetails'>

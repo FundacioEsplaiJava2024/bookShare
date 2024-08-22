@@ -281,6 +281,9 @@ label {
     text-align: right; /* Alinea el texto del label a la derecha */
     margin-right: 10px; /* Espacio entre el label y el input */
 }
+textArea{
+    width: 470px;
+}
   
 input[type="text"],
 input[type="file"] {
@@ -361,4 +364,13 @@ button:hover {
     display: flex;
     margin: 0 auto;
     margin-bottom: 2rem;
+}
+
+/* CSS PARA LA PREVISUALIZACION DE LA IMAGEN AL SUBIR LIBRO */
+.image-container{
+    margin: 0 auto !important;
+}
+.image-container img{
+    width: 150px;
+    height: 200px; 
 }

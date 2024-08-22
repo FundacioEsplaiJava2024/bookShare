@@ -8,24 +8,20 @@ interface UserProfileProps {
     user_image: string;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, update_at, user_image }) => {
-    const [isEditing, setIsEditing] = useState(false);
+const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, user_image }) => {
     const [newImage, setNewImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    const handleEditClick = () => {
-        setIsEditing(true);
-    };
-
+    // Manejar cuando seleccionan una nueva imagen
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, files } = e.target;
-        if (name === 'user_image' && files && files.length > 0) {
+        const { files } = e.target;
+        if (files && files.length > 0) {
             setNewImage(files[0]);
-            // Crear una URL de vista previa para la nueva imagen
-            setImagePreview(URL.createObjectURL(files[0]));
+            setImagePreview(URL.createObjectURL(files[0])); // Vista previa de la imagen seleccionada
         }
     };
 
+    // Subir la nueva imagen al servidor
     const handleImageUpload = async () => {
         if (!newImage) return;
 
@@ -33,7 +29,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
         formData.append("image", newImage);
 
         try {
-            const response = await fetch("http://127.0.0.1:8080/bookShare/users/upload", {
+            const response = await fetch(`http://127.0.0.1:8080/bookShare/users/upload`, {
                 method: "POST",
                 body: formData,
             });
@@ -43,55 +39,44 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, up
                 await fetch(`http://127.0.0.1:8080/bookShare/users/update/${user_id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ imageUrl: newImageUrl, name }), // Mantén el nombre sin cambios
+                    body: JSON.stringify({ imageUrl: newImageUrl }),
                 });
                 console.log("Imagen actualizada:", newImageUrl);
                 alert("Foto de perfil actualizada correctamente.");
             } else {
-                console.error("Error al subir la imagen:", response.statusText);
                 alert("Hubo un error al actualizar la imagen.");
             }
         } catch (error) {
-            console.error("Error en la carga de la imagen:", error);
             alert("Error en la carga de la imagen.");
         }
     };
 
-    const handleUpdate = async () => {
-        await handleImageUpload();
-        setIsEditing(false);
-    };
-
     return (
         <div className="user-header">
-            {isEditing ? (
-                <div>
-                    <h3>Editar Perfil</h3>
-                    {/* Eliminar el campo de entrada para el nombre */}
-                    <input
-                        type="file"
-                        name="user_image"
-                        accept="image/*"
-                        onChange={handleInputChange}
-                    />
-                    <button className="bookPost" onClick={handleUpdate}>Actualizar</button>
-                    <button className="bookPost" onClick={() => setIsEditing(false)}>Cancelar</button>
-                </div>
-            ) : (
-                <div className="profile-info">
+            <div className="profile-info">
+                <div className="profile-picture-wrapper">
                     <img
-                        src={imagePreview || `${user_image}`} // Muestra la nueva imagen si hay vista previa, de lo contrario, muestra la imagen actual
+                        src={imagePreview || `${user_image}`}
                         alt={`${name}'s profile`}
                         className="profile-picture"
                     />
-                    <p><strong>Usuario:</strong> {name}</p>
-                    <p>Usuario desde el: {created_at}</p>
-                   
+                    <div className="camera-icon" onClick={() => document.getElementById('imageUpload')?.click()}>
+                        <i className="fas fa-camera"></i>
+                    </div>
+                    <input
+                        type="file"
+                        id="imageUpload"
+                        style={{ display: 'none' }}
+                        accept="image/*"
+                        onChange={handleInputChange}
+                    />
                 </div>
-            )}
-            {!isEditing && (
+                <p><strong>Usuario:</strong> {name}</p>
+                <p>Usuario desde el: {new Date(created_at).toLocaleDateString()}</p>
+            </div>
+            {newImage && (
                 <div className="upload-section">
-                    <button className="bookPost" onClick={handleEditClick}>Editar</button>
+                    <button className="bookPost" onClick={handleImageUpload}>Actualizar imagen</button>
                 </div>
             )}
         </div>

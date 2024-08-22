@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
-import { Book, User } from '../services/api'; // Importa las interfaces si es necesario
+import { Book, User } from '../services/api';
 
 const NavBar: React.FC = () => {
-  const [searchResults, setSearchResults] = useState<(Book | User)[]>([]);
-  const [userName, setUserName] = useState<string | null>(null); // Estado para el nombre del usuario
-  const [dropdownOpen, setDropdownOpen] = useState(false); // Estado para manejar la apertura del dropdown
+  const [userName, setUserName] = useState<string | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedUserName = sessionStorage.getItem('userName');
     if (storedUserName) {
-      setUserName(storedUserName); // Establece el nombre del usuario en el estado
+      setUserName(storedUserName);
     }
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen); // Alternar entre abrir y cerrar el dropdown
+    setDropdownOpen(!dropdownOpen);
   };
 
   const handleLogout = () => {
-    // Manejar el cierre de sesión
     sessionStorage.clear();
     navigate('/');
+  };
+
+  const handleSearchResults = (results: (Book | User)[]) => {
+    navigate('/search-results', { state: { searchResults: results } });
   };
 
   return (
@@ -32,16 +34,15 @@ const NavBar: React.FC = () => {
         <Link to="/HomePage"><img src="img/originLogo.png" alt="index" /></Link>
       </div>
       <div className="search-bar-container">
-        <SearchBar setSearchResults={setSearchResults} />
+        <SearchBar setSearchResults={handleSearchResults} />
       </div>
       <nav>
         <Link to="/quienes-somos">Quienes somos?</Link>
-        {/* Dropdown para el perfil */}
         <div className="dropdown">
           <a onClick={toggleDropdown} className="dropdown-button">
-            {userName ? userName : 'Perfil'} {/* Mostrar el nombre del usuario o "Perfil" */}
+            {userName ? userName : 'Perfil'}
           </a>
-          {dropdownOpen && ( // Si el estado `dropdownOpen` es verdadero, muestra el menú
+          {dropdownOpen && (
             <div className="dropdown-menu">
               <Link to="/edit-profile" onClick={() => setDropdownOpen(false)}>Ver Perfil</Link>
               <Link to="/BookForm" onClick={() => setDropdownOpen(false)}>Añadir Libro</Link>
