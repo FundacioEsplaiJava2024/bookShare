@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ContactUsers, Book } from '../../services/api';  // Importamos la interfaz de ContactUsers
-import ContactProfile from '../Contacts/ContactProfile';
+import ContactPost from '../Contacts/ContactPost';
 
 interface BookPostProps {
   user_id: number;
@@ -96,7 +96,7 @@ const BookPost: React.FC<BookPostProps> = ({
           <div className="modal-content">
             <h2>Información de Contacto</h2>
             {Array.isArray(contactInfo) && contactInfo.map((contact) => (
-              <ContactProfile
+              <ContactPost
                 key={contact.contact_id}
                 contact={contact}
               />
