@@ -1,4 +1,3 @@
-// src/components/BookForm.tsx
 import React, { useState } from 'react';
 import { createBook, uploadImage } from '../../services/api';
 
@@ -10,6 +9,8 @@ const BookForm: React.FC = () => {
     const [location, setLocation] = useState('');
     const [userId, setUserId] = useState(sessionStorage.getItem("userId")); // Asume que userId está en sessionStorage
     const [image, setImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [isImageEditing, setIsImageEditing] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,6 +45,8 @@ const BookForm: React.FC = () => {
             setCondition('');
             setLocation('');
             setImage(null);
+            setImagePreview(null);
+            setIsImageEditing(false); // Resetear el estado de edición de imagen
         } catch (error) {
             alert('Error al agregar libro');
         }
@@ -53,69 +56,105 @@ const BookForm: React.FC = () => {
         const file = e.target.files && e.target.files[0];
         if (file) {
             setImage(file);
+            const fileReader = new FileReader();
+            fileReader.onloadend = () => {
+                setImagePreview(fileReader.result as string);
+                setIsImageEditing(false); // Cambiar a false después de seleccionar la imagen
+            };
+            fileReader.readAsDataURL(file);
         }
+    };
+
+    const handleEditImage = () => {
+        document.getElementById('image-input')?.click();
     };
 
     return (
         <div className="formContainer">
-            <h3>Haz una nueva publicacion para una donacion:</h3>
+            <h3>Haz una nueva publicación para una donación:</h3>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Titulo:</label>
                     <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
                     <label>Autor:</label>
                     <input
-                    type="text"
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                    required
+                        type="text"
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Descipcion:</label>
-                    <input
-                    type="text"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
+                    <label>Descripción:</label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                        rows={4} // Ajusta el número de filas según sea necesario
                     />
                 </div>
                 <div className="form-group">
-                    <label>Condicion:</label>
+                    <label>Condición:</label>
                     <input
-                    type="text"
-                    value={condition}
-                    onChange={(e) => setCondition(e.target.value)}
-                    required
+                        type="text"
+                        value={condition}
+                        onChange={(e) => setCondition(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Ubicacion:</label>
+                    <label>Ubicación:</label>
                     <input
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    required
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
                     <label>Imagen:</label>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="image-input"
+                        style={{ display: 'none' }}
+                        onChange={handleImageChange}
+                    />
+                    <div className="image-container">
+                        {imagePreview ? (
+                            <div className="image-preview-container">
+                                <img
+                                    src={imagePreview}
+                                    alt="Preview"
+                                />
+                                <i
+                                    className="fas fa-pencil-alt edit-icon"
+                                    onClick={handleEditImage}
+                                ></i>
+                            </div>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => document.getElementById('image-input')?.click()}
+                            >
+                                Subir Imagen
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 <div className="button-container">
                     <button type="submit" className='bookPost'>Publicar Libro</button>
                 </div>
             </form>
-
-        </div>    
+        </div>
     );
 };
 
