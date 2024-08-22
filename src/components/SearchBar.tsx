@@ -1,7 +1,7 @@
 // src/components/SearchBar.tsx
 
 import React, { useState, useEffect, useRef } from "react";
-import { fetchUsers, fetchBooks, Book, User } from "../services/api";
+import { fetchUsers, fetchBooks, fetchUserBooks, Book, User } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
@@ -19,33 +19,44 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
     if (!input.trim()) return;
 
     try {
-      let response;
+      let filteredResults: (Book | User)[] = [];
+
       if (filter === "books") {
-        response = await fetchBooks();
+        const books = await fetchBooks();
+        const keywords = input.toLowerCase().split(/\s+/);
+        setKeywords(keywords);
+
+        filteredResults = books.filter((book: Book) =>
+          keywords.every(keyword => book.book_title.toLowerCase().includes(keyword))
+        );
       } else {
-        response = await fetchUsers();
+        const users = await fetchUsers();
+        const keywords = input.toLowerCase().split(/\s+/);
+        setKeywords(keywords);
+
+        for (const user of users) {
+          const isMatch = keywords.every(keyword =>
+            user.name.toLowerCase().includes(keyword)
+          );
+
+          if (isMatch) {
+            // Agregar el usuario a los resultados
+            filteredResults.push(user);
+
+            // Fetch and add the user's books
+            const userBooks = await fetchUserBooks(user.user_id);
+            filteredResults = filteredResults.concat(userBooks);
+          }
+        }
       }
 
-      const keywords = input.toLowerCase().split(/\s+/);
-      setKeywords(keywords);
-
-      const filteredResults = response.filter((item: Book | User) => {
-        const textToSearch = filter === "books"
-          ? (item as Book).book_title.toLowerCase()
-          : (item as User).name.toLowerCase();
-
-        return keywords.every(keyword => textToSearch.includes(keyword));
-      });
-
       setSearchResults(filteredResults);
-
       navigate("/search-results", { state: { searchResults: filteredResults } });
     } catch (error) {
       console.error("Error during search: ", error);
     }
   };
 
-  // Ocultar resultados y limpiar input al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
