@@ -3,10 +3,9 @@ import { ContactUsers, updateContact } from '../../services/api';
 
 interface ContactProfileProps {
   contact: ContactUsers;
-  onUpdateContact: (updatedContact: ContactUsers) => void; // Callback for updating contact
 }
 
-const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContact }) => {
+const ContactProfile: React.FC<ContactProfileProps> = ({ contact,  }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [contactData, setContactData] = useState(contact);
 
@@ -20,7 +19,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
     // Suponiendo que tienes una función para actualizar un contacto en tu API
     try {
       const updatedContact = await updateContact(contactData); // Esta función debe ser creada en tu API
-      onUpdateContact(updatedContact);
+      contact = updatedContact;
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating contact:', error);
@@ -34,6 +33,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
           <input
             type="text"
             name="phone_number"
+            placeholder="651111111"
             value={contactData.phone_number}
             onChange={handleInputChange}
           />

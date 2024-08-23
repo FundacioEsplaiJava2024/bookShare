@@ -64,8 +64,8 @@ const EditProfile: React.FC = () => {
               name={user.name}
               created_at={user.created_at}
               update_at={user.update_at}
-              user_image={user.user_image} 
-              user_id={user.user_id}/>
+              user_image={user.user_image}
+              user_id={user.user_id} />
           ))}
         </div>
 
@@ -75,7 +75,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
               key={contact.contact_id}
-             contact={contact}
+              contact={contact}
             />
           ))}
         </div>
@@ -86,7 +86,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(books) && books.map((book) => (
             <BookProfile
               key={book.book_id}
-            book={book}  // Pasas todo el objeto `book` que esta en bookProfile
+              book={book}  // Pasas todo el objeto `book` que esta en bookProfile
             />
           ))}
         </div>
