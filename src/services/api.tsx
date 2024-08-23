@@ -26,8 +26,8 @@
     user_image: string;
   }
   export interface ContactUsers {
-    contact_id: number;
-    user_id: number;
+    
+    userId: number;
     phone_number: string;
     email: string;
     address: string;
@@ -39,7 +39,7 @@
     updated_at: string;
   }
   export const updateContact = async (contact: ContactUsers): Promise<ContactUsers> => {
-    const response = await fetch(`http://127.0.0.1:8080/bookShare/contacts/update/${contact.contact_id}`, {
+    const response = await fetch(`http://127.0.0.1:8080/bookShare/contacts/update/${contact.userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,11 +47,12 @@
       body: JSON.stringify(contact),
     });
     if (!response.ok) {
-      throw new Error(`Failed to update contact with id ${contact.contact_id}`);
+      throw new Error(`Failed to update contact with id ${contact.userId}`);
     }
     return await response.json();
   };
   export const createContact = async (contactData: ContactUsers): Promise<ContactUsers> => {
+    console.log("contact data "+JSON.stringify(contactData));
     const response = await axios.post(`${API_URL}/contacts/add`, contactData);
     return response.data;
 };

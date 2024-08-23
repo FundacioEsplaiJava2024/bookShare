@@ -79,8 +79,9 @@ const EditProfile: React.FC = () => {
           <h3>Detalles de Contacto</h3>
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
-              key={contact.contact_id}
+              key={contact.userId}
               contact={contact}
+              onUpdateContact={handleAddContact} // Asegúrate de tener esta función
             />
           ))}
           <button onClick={() => setShowAddContact(!showAddContact)}>

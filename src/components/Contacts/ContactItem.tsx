@@ -9,8 +9,8 @@ interface ContactItemProps {
 const ContactItem: React.FC<ContactItemProps> = ({ contact }) => {
     return (
         <div>
-            <p>{contact.contact_id}</p>
-            <p>{contact.user_id}</p>
+           
+            <p>{contact.userId}</p>
             <p>{contact.phone_number}</p>
             <p>{contact.email}</p>
             <p>{contact.address}</p>
