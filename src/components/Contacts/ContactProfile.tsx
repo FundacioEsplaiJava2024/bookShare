@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ContactUsers, updateContact } from '../../services/api';
 
 interface ContactProfileProps {
@@ -11,6 +11,11 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
   const [contactData, setContactData] = useState(contact);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(false); // State to track if the button was clicked
 
+  // Update the contact data when the contact prop changes
+  useEffect(() => {
+    setContactData(contact);
+  }, [contact]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setContactData({ ...contactData, [name]: value });
@@ -18,9 +23,9 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
 
   const handleUpdate = async () => {
     try {
-      const updatedContact = await updateContact(contactData);
-      onUpdateContact(updatedContact);
-      setIsEditing(false);
+      const updatedContact = await updateContact(contactData); // Ensure this updates the existing contact
+      onUpdateContact(updatedContact); // Call the parent function to update the contact in the parent state
+      setIsEditing(false); // Exit edit mode
     } catch (error) {
       console.error('Error updating contact:', error);
     }
@@ -92,9 +97,9 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
         </div>
       ) : (
         <div className="profile-info">
-          <p><strong>Teléfono:</strong> {contact.phone_number}</p>
-          <p><strong>Email:</strong> {contact.email}</p>
-          <p><strong>Dirección:</strong> {contact.address}, {contact.city}, {contact.state}, {contact.country} - {contact.postal_code}</p>
+          <p><strong>Teléfono:</strong> {contactData.phone_number}</p>
+          <p><strong>Email:</strong> {contactData.email}</p>
+          <p><strong>Dirección:</strong> {contactData.address}, {contactData.city}, {contactData.state}, {contactData.country} - {contactData.postal_code}</p>
           <button onClick={() => setIsEditing(true)}>Editar</button>
         </div>
       )}
