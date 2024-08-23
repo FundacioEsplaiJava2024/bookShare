@@ -42,7 +42,7 @@ const BookPost: React.FC<BookPostProps> = ({
       console.error("Error fetching contact info:", error);
     }
   };
-  console.log(contactInfo?.user_id)
+  console.log(contactInfo?.userId)
 
   // Fetch user name based on user_id when component mounts
   useEffect(() => {
