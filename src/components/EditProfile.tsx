@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserProfile from './User/UserProfile';
 import BookProfile from './Book/BookProfile';
 import ContactProfile from './Contacts/ContactProfile';
+import AddContact from './Contacts/AddContact'; // Importa el nuevo componente
 import '../EditProfile.css';
 import { Book, User, ContactUsers } from '../services/api';
 
@@ -10,6 +11,7 @@ const EditProfile: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [contacts, setContactUser] = useState<ContactUsers[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddContact, setShowAddContact] = useState(false); // Estado para mostrar el formulario de añadir contacto
 
   useEffect(() => {
     const userId = sessionStorage.getItem("userId");
@@ -30,7 +32,6 @@ const EditProfile: React.FC = () => {
     fetch(`http://127.0.0.1:8080/bookShare/books/user/${userId}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('Response data:', data);
         setBooks(data);
       })
       .catch((error) => {
@@ -42,12 +43,16 @@ const EditProfile: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         setContactUser(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching contact info:', error);
       });
   }, []);
+
+  const handleAddContact = (newContact: ContactUsers) => {
+    setContactUser((prevContacts) => [...prevContacts, newContact]); // Añade el nuevo contacto a la lista
+    setShowAddContact(false); // Cierra el formulario después de añadir
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -75,9 +80,14 @@ const EditProfile: React.FC = () => {
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
               key={contact.contact_id}
-             contact={contact}
+              contact={contact}
+              onUpdateContact={handleUpdateContact} // Asegúrate de tener esta función
             />
           ))}
+          <button onClick={() => setShowAddContact(!showAddContact)}>
+            {showAddContact ? 'Cancelar' : 'Añadir Contacto'}
+          </button>
+          {showAddContact && <AddContact onAddContact={handleAddContact} />}
         </div>
       </div>
       <div className="column user-books">
@@ -86,7 +96,7 @@ const EditProfile: React.FC = () => {
           {Array.isArray(books) && books.map((book) => (
             <BookProfile
               key={book.book_id}
-            book={book}  // Pasas todo el objeto `book` que esta en bookProfile
+              book={book}
             />
           ))}
         </div>

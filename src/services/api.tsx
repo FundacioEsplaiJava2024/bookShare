@@ -51,6 +51,10 @@
     }
     return await response.json();
   };
+  export const createContact = async (contactData: ContactUsers): Promise<ContactUsers> => {
+    const response = await axios.post(`${API_URL}/contacts/add`, contactData);
+    return response.data;
+};
   export async function fetchBooks() {
     try {
       const response = await axios.get(`${API_URL}/books/list`);
