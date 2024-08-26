@@ -20,9 +20,6 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
             
             <p>{user.name}</p>
             <p>{user.email}</p>
-            
-            <p>{user.created_at}</p>
-            <p>{user.update_at}</p>
             <img 
                 src={user.user_image} 
                 alt={`${user.name}'s profile`} 
