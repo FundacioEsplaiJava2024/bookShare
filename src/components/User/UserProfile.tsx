@@ -29,7 +29,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user_id, name, created_at, us
         formData.append("image", newImage);
 
         try {
-            const response = await fetch(`http://127.0.0.1:8080/bookShare/users/upload`, {
+            const response = await fetch(`http://127.0.0.1:8080/bookShare/image/upload`, {
                 method: "POST",
                 body: formData,
             });
