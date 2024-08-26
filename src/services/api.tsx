@@ -199,7 +199,7 @@
 
   export const uploadImage = async (formData: FormData): Promise<string> => {
     try {
-      const response = await fetch(`${API_URL}/books/upload`, {
+      const response = await fetch(`${API_URL}/image/upload`, {
         method: 'POST',
         body: formData,
       });
