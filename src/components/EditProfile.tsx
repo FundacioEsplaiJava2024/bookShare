@@ -69,7 +69,7 @@ const EditProfile: React.FC = () => {
               name={user.name}
               created_at={user.created_at}
               update_at={user.update_at}
-              user_image={user.user_image} 
+              user_image={user.user_image}
               user_id={user.user_id}/>
           ))}
         </div>
@@ -84,12 +84,19 @@ const EditProfile: React.FC = () => {
               onUpdateContact={handleAddContact} // Asegúrate de tener esta función
             />
           ))}
-          <button onClick={() => setShowAddContact(!showAddContact)}>
-            {showAddContact ? 'Cancelar' : 'Añadir Contacto'}
-          </button>
+
+          {/* Si no hay contactos, muestra el botón para añadir uno */}
+          {contacts.length === 0 && (
+            <button onClick={() => setShowAddContact(!showAddContact)}>
+              {showAddContact ? 'Cancelar' : 'Añadir Contacto'}
+            </button>
+          )}
+
+          {/* Mostrar el formulario para añadir un nuevo contacto si se hace clic en el botón */}
           {showAddContact && <AddContact onAddContact={handleAddContact} />}
         </div>
       </div>
+      
       <div className="column user-books">
         <h2>Libros del Usuario</h2>
         <div className="books-list">
