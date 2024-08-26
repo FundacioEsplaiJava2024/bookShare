@@ -3,13 +3,16 @@ import { ContactUsers, updateContact } from '../../services/api';
 
 interface ContactProfileProps {
   contact: ContactUsers | null; // If no contact exists initially, it will be null
-  onUpdateContact: (updatedContact: ContactUsers) => void; // Callback for updating contact
 }
 
-const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContact }) => {
+const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [contactData, setContactData] = useState<ContactUsers | null>(contact);
   const [isContactAdded, setIsContactAdded] = useState(!!contact); // State to track if the contact is added
+  const handleUpdateContact = (updatedContact: ContactUsers) => {
+    setContactData(updatedContact);
+    setIsContactAdded(true); // O cualquier otra lógica que necesites
+  };
 
   // Update contact data when contact prop changes
   useEffect(() => {
@@ -28,12 +31,12 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
   const handleUpdate = async () => {
     try {
       if (contactData) {
-        const updatedContact = await updateContact(contactData); // Ensure this updates the existing contact
-        onUpdateContact(updatedContact); // Call the parent function to update the contact in the parent state
-        setIsEditing(false); // Exit edit mode
+        const updatedContact = await updateContact(contactData); // Asegúrate de que esto actualiza el contacto existente
+        handleUpdateContact(updatedContact); // Llama a la función local para actualizar el contacto en el estado local
+        setIsEditing(false); // Salir del modo de edición
       }
     } catch (error) {
-      console.error('Error updating contact:', error);
+      console.error('Error actualizando el contacto:', error);
     }
   };
 

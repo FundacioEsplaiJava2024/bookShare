@@ -81,7 +81,6 @@ const EditProfile: React.FC = () => {
             <ContactProfile
               key={contact.userId}
               contact={contact}
-              onUpdateContact={handleAddContact} // Asegúrate de tener esta función
             />
           ))}
 
