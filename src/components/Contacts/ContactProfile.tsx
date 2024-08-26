@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ContactUsers, updateContact } from '../../services/api';
 
 interface ContactProfileProps {
@@ -9,6 +9,12 @@ interface ContactProfileProps {
 const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContact }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [contactData, setContactData] = useState(contact);
+  const [isAddButtonClicked, setIsAddButtonClicked] = useState(false); // State to track if the button was clicked
+
+  // Update the contact data when the contact prop changes
+  useEffect(() => {
+    setContactData(contact);
+  }, [contact]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -16,14 +22,27 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
   };
 
   const handleUpdate = async () => {
-    // Aquí puedes hacer la llamada a tu API para actualizar el contacto
-    // Suponiendo que tienes una función para actualizar un contacto en tu API
     try {
-      const updatedContact = await updateContact(contactData); // Esta función debe ser creada en tu API
-      onUpdateContact(updatedContact);
-      setIsEditing(false);
+      const updatedContact = await updateContact(contactData); // Ensure this updates the existing contact
+      onUpdateContact(updatedContact); // Call the parent function to update the contact in the parent state
+      setIsEditing(false); // Exit edit mode
     } catch (error) {
       console.error('Error updating contact:', error);
+    }
+  };
+
+  const handleAddContact = async () => {
+    try {
+      // Logic to add the contact goes here
+      console.log('Contact added:', contactData);
+
+      // Simulate adding contact API call
+      // await addContact(contactData); // Uncomment this line and implement addContact API call
+
+      // Prevent the button from being clicked again
+      setIsAddButtonClicked(true);
+    } catch (error) {
+      console.error('Error adding contact:', error);
     }
   };
 
@@ -78,11 +97,18 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact, onUpdateContac
         </div>
       ) : (
         <div className="profile-info">
-          <p><strong>Teléfono:</strong> {contact.phone_number}</p>
-          <p><strong>Email:</strong> {contact.email}</p>
-          <p><strong>Dirección:</strong> {contact.address}, {contact.city}, {contact.state}, {contact.country} - {contact.postal_code}</p>
+          <p><strong>Teléfono:</strong> {contactData.phone_number}</p>
+          <p><strong>Email:</strong> {contactData.email}</p>
+          <p><strong>Dirección:</strong> {contactData.address}, {contactData.city}, {contactData.state}, {contactData.country} - {contactData.postal_code}</p>
           <button onClick={() => setIsEditing(true)}>Editar</button>
         </div>
+      )}
+      {/* Add Contact button */}
+      {!isAddButtonClicked && (
+        <button onClick={handleAddContact}>Añadir Contacto</button>
+      )}
+      {isAddButtonClicked && !isEditing && (
+        <p>Contacto añadido. Puedes editarlo a continuación.</p>
       )}
     </div>
   );

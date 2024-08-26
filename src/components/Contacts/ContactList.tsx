@@ -1,29 +1,18 @@
 import React from 'react';
 import ContactItem from './ContactItem';
+import { ContactUsers } from '../../services/api';
 
-interface Contact {
-    contact_id: number;
-    user_id: number;
-    phone_number: string;
-    email: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    postal_code: string;
-    created_at: string;
-    update_at: string;
-}
+
 
 interface ContactListProps{
-    contacts: Contact[];
+    contacts: ContactUsers[];
 }
 
 const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
     return (
         <div>
             {contacts.map(contact => (
-                <ContactItem key={contact.contact_id} contact={contact} />
+                <ContactItem key={contact.userId} contact={contact} />
             ))}
         </div>
     );
