@@ -9,7 +9,8 @@ const AuthForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to manage error messages 
   const history = useNavigate(); // Get the history object for redirection 
-  
+  const [showAlert, setShowAlert] = useState(false);
+
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -44,9 +45,10 @@ const AuthForm: React.FC = () => {
       console.log('Usuario creado:', user);
       if (user) {
         history('/');
+        setShowAlert(true);
       } else {
         setError('Failed to create user');
-      } 
+      }
     } catch (error) {
       console.error('Error al crear usuario:', error);
     }
@@ -107,7 +109,7 @@ const AuthForm: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-             {error && <div style={{ color: 'red' }}>{error}</div>}
+            {error && <div style={{ color: 'red' }}>{error}</div>}
             <button type="submit">Entrar</button>
           </form>
         ) : (
@@ -140,6 +142,11 @@ const AuthForm: React.FC = () => {
             <button type="submit">Regístrarse</button>
             {error && <div style={{ color: 'red' }}>{error}</div>}
           </form>
+        )}
+        {showAlert && (
+          <div className="alert">
+            Usuario registrado correctamente
+          </div>
         )}
       </div>
     </div>
