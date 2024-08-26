@@ -59,7 +59,7 @@ const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
         <input type="text" name="state" placeholder="Estado" onChange={handleInputChange} />
         <input type="text" name="country" placeholder="País" onChange={handleInputChange} />
         <input type="text" name="postal_code" placeholder="Código Postal" onChange={handleInputChange} />
-        <button onClick={handleAdd}>Añadir</button>
+        <button className='bookPost' onClick={handleAdd}>Añadir</button>
       </div>
     );
   };

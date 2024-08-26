@@ -60,7 +60,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
   return (
     <div className="user-header">
       {isEditing ? (
-        <div>
+        <div className="user-header-inf">
           <input
             type="text"
             name="phone_number"
@@ -103,8 +103,8 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
             value={contactData?.postal_code || ""}
             onChange={handleInputChange}
           />
-          <button onClick={handleUpdate}>Actualizar</button>
-          <button onClick={() => setIsEditing(false)}>Cancelar</button>
+          <button className="bookPost" onClick={handleUpdate}>Actualizar</button>
+          <button className="bookPost" onClick={() => setIsEditing(false)}>Cancelar</button>
         </div>
       ) : (
         <div className="profile-info">
@@ -114,7 +114,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
               <p><strong>Email:</strong> {contactData?.email}</p>
               <p><strong>Dirección:</strong> {contactData?.address}, {contactData?.city}, {contactData?.state}, {contactData?.country} - {contactData?.postal_code}</p>
               {/* Show Edit button if contact has been added */}
-              <button onClick={() => setIsEditing(true)}>Editar</button>
+              <button className="bookPost" onClick={() => setIsEditing(true)}>Editar</button>
             </>
           ) : (
             <p>No hay contacto. Por favor, añade un contacto.</p>
@@ -124,7 +124,7 @@ const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
 
       {/* Show Add Contact button only if no contact has been added */}
       {!isContactAdded && (
-        <button onClick={handleAddContact}>Añadir Contacto</button>
+        <button className="bookPost" onClick={handleAddContact}>Añadir Contacto</button>
       )}
     </div>
   );
