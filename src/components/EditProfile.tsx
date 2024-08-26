@@ -70,7 +70,7 @@ const EditProfile: React.FC = () => {
               created_at={user.created_at}
               update_at={user.update_at}
               user_image={user.user_image}
-              user_id={user.user_id}/>
+              user_id={user.user_id} />
           ))}
         </div>
 

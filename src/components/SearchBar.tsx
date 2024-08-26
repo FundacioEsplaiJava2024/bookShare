@@ -20,19 +20,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
 
     try {
       let filteredResults: (Book | User)[] = [];
+      const keywords = input.toLowerCase().split(/\s+/);
+      setKeywords(keywords);
 
       if (filter === "books") {
         const books = await fetchBooks();
-        const keywords = input.toLowerCase().split(/\s+/);
-        setKeywords(keywords);
 
         filteredResults = books.filter((book: Book) =>
           keywords.every(keyword => book.book_title.toLowerCase().includes(keyword))
         );
-      } else {
+      } else if (filter === "users") {
         const users = await fetchUsers();
-        const keywords = input.toLowerCase().split(/\s+/);
-        setKeywords(keywords);
 
         for (const user of users) {
           const isMatch = keywords.every(keyword =>
@@ -48,6 +46,31 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
             filteredResults = filteredResults.concat(userBooks);
           }
         }
+      } else {
+        // Buscar tanto en libros como en usuarios
+        const books = await fetchBooks();
+        const users = await fetchUsers();
+
+        const bookResults = books.filter((book: Book) =>
+          keywords.every(keyword => book.book_title.toLowerCase().includes(keyword))
+        );
+
+        const userResults = [];
+        for (const user of users) {
+          const isMatch = keywords.every(keyword =>
+            user.name.toLowerCase().includes(keyword)
+          );
+
+          if (isMatch) {
+            userResults.push(user);
+
+            // Fetch and add the user's books
+            const userBooks = await fetchUserBooks(user.user_id);
+            userResults.push(...userBooks);
+          }
+        }
+
+        filteredResults = [...bookResults, ...userResults];
       }
 
       setSearchResults(filteredResults);
@@ -56,6 +79,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchResults }) => {
       console.error("Error during search: ", error);
     }
   };
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

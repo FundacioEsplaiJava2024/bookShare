@@ -35,21 +35,33 @@ const SearchResultsPage: React.FC = () => {
       </div>
     );
   };
-
   return (
     <div className="home-page">
       <h1>Resultados de Búsqueda:</h1>
       <div className="container">
         {searchResults.length > 0 ? (
-          searchResults
-            .filter((item) => 'user_id' in item) // Filtrar solo usuarios para renderizar
-            .map((item) => renderUserWithBooks(item as User))
+          searchResults.map((item) =>
+            'user_id' in item ? (
+              renderUserWithBooks(item as User)
+            ) : (
+              <BookPost
+                user_id={(item as Book).userId}
+                title={(item as Book).book_title}
+                author={(item as Book).book_author}
+                location={(item as Book).book_location}
+                createdAt={(item as Book).created_at}
+                updatedAt={(item as Book).updated_at}
+                key={(item as Book).book_id}
+                {...(item as Book)}
+              />
+            )
+          )
         ) : (
           <p>No se encontraron resultados.</p>
         )}
       </div>
     </div>
-  );
-};
+  );}
+  
 
 export default SearchResultsPage;
