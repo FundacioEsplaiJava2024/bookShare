@@ -26,12 +26,6 @@ const SearchResultsPage: React.FC = () => {
     return (
       <div key={user.user_id}>
         <UserItem user={user} />
-        {userBooks.map((book) => (
-          <BookPost
-            user_id={book.userId} title={book.book_title} author={book.book_author} location={book.book_location} createdAt={book.created_at} updatedAt={book.updated_at} key={book.book_id}
-
-            {...book}          />
-        ))}
       </div>
     );
   };
