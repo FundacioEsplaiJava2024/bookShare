@@ -79,7 +79,7 @@ const BookPost: React.FC<BookPostProps> = ({
           <h2>{title}</h2>
           <p>Por: {author}</p>
           <p>Descripción: {book_description}</p>
-          <p>Categoría: {category_id}</p>
+          
           <p><strong>Condición:</strong> {book_condition}</p>
           <p><strong>Ubicación:</strong> {location}</p>
           <p><em>Publicado el: {new Date(createdAt).toLocaleDateString()}</em></p>
