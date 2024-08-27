@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createBook, uploadImage } from '../../services/api';
+import BookDetailPage from '../../pages/BookDetailPage';
 
 const BookForm: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -23,7 +24,8 @@ const BookForm: React.FC = () => {
         }
 
         const newBook = {
-            userId: userId,
+            ...BookDetailPage,
+            userId: userId as number | null,
             book_id: 1, // Ajusta según sea necesario
             category_id: 1, // Ajusta según sea necesario
             book_title: title,

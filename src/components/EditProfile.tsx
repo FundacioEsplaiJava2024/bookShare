@@ -80,8 +80,9 @@ const EditProfile: React.FC = () => {
           {Array.isArray(contacts) && contacts.map((contact) => (
             <ContactProfile
               key={contact.userId}
-              contact={contact}
-            />
+              contact={contact} onUpdateContact={function (updateContact: ContactUsers): void {
+                throw new Error('Function not implemented.');
+              } }            />
           ))}
 
           {/* Si no hay contactos, muestra el botón para añadir uno */}

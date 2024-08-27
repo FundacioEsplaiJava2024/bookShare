@@ -23,9 +23,10 @@ const BookProfile: React.FC<BookProfileProps> = ({ book }) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, files } = e.target;
-    if (name === 'book_image' && files && files.length > 0) {
-      const file = files[0];
+    const { name, value } = e.target;
+  
+    if (name === 'book_image' && e.target instanceof HTMLInputElement && e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
       setImageFile(file);
       const fileReader = new FileReader();
       fileReader.onloadend = () => {

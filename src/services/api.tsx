@@ -95,7 +95,7 @@
   }
 
   export async function createBook(bookData: {
-    userId: number,
+    userId: number | null,
     book_id: number,
     category_id: number,
     book_title: string,
