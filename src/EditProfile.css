@@ -19,7 +19,7 @@
 
 .profile-description {
   background-color: rgb(255 255 255 / 0.75);
-  max-height: 80vh;
+  min-height: 80vh;
   max-width: 25%;
 }
 
@@ -39,6 +39,10 @@
 
 .profile-info {
   flex: 1; /* La información de perfil ocupa el espacio restante */
+}
+.user-header-inf{
+  display: flex;
+    flex-direction: column;
 }
 
 .user-books {
