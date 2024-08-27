@@ -3,6 +3,7 @@ import { ContactUsers, updateContact } from '../../services/api';
 
 interface ContactProfileProps {
   contact: ContactUsers | null; // If no contact exists initially, it will be null
+  onUpdateContact: (updateContact: ContactUsers) => void;
 }
 
 const ContactProfile: React.FC<ContactProfileProps> = ({ contact }) => {
