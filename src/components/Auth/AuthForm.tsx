@@ -44,7 +44,6 @@ const AuthForm: React.FC = () => {
       const user = await createUser(newUser);
       console.log('Usuario creado:', user);
       if (user) {
-        history('/');
         setShowAlert(true);
       } else {
         setError('Failed to create user');
