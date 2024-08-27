@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../AuthForm.module.css';
 import { createUser, loginUser } from '../../services/api';
-import { useNavigate } from 'react-router-dom'; // Import useHistory hook 
+import { useNavigate } from 'react-router-dom';
+
 const AuthForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State to manage error messages 
-  const history = useNavigate(); // Get the history object for redirection 
-  
+  const [error, setError] = useState('');
+  const history = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -41,14 +41,15 @@ const AuthForm: React.FC = () => {
         password: password,
       };
       const user = await createUser(newUser);
-      console.log('Usuario creado:', user);
       if (user) {
+        window.alert('Usuario registrado correctamente'); // Show success prompt
         history('/');
       } else {
         setError('Failed to create user');
-      } 
+      }
     } catch (error) {
       console.error('Error al crear usuario:', error);
+      setError('Error al crear usuario');
     }
   };
 
@@ -62,13 +63,14 @@ const AuthForm: React.FC = () => {
       const user = await loginUser(credentials);
       if (user) {
         sessionStorage.setItem("userId", "" + user.user_id);
-        sessionStorage.setItem("userName", user.name);  // Almacena el nombre del usuario
+        sessionStorage.setItem("userName", user.name);
         history('/HomePage');
       } else {
         setError('Invalid username or password');
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
+      setError('Error al iniciar sesión');
     }
   };
 
